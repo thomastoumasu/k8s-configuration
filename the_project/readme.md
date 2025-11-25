@@ -1,4 +1,3 @@
-Ex 1.2
-https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-2/first-deploy
+https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 
-execute sh bin/bash/ex1_2.sh to perform exercise
+execute sh bin/bash/exXXX.sh from this folder to perform the exercises

@@ -1,4 +1,3 @@
-Ex 1.1
-https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-2/first-deploy
+https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 
-execute sc.sh to perform exercise
+execute scripts in bin/bash to perform the exercises
