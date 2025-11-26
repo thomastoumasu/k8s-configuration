@@ -1,12 +1,15 @@
 {
-  "name": "ex1.1",
+  "name": "log_output",
   "version": "1.0.0",
-  "description": "https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-2/first-deploy",
+  "description": "https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }

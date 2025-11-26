@@ -12,6 +12,6 @@ kubectl apply -f manifests/service.yaml
 kubectl apply -f manifests/ingress.yaml
 
 # check that app is accessible on host port
-kubectl rollout status deployment log-output
+kubectl rollout status deployment log-output-dep
 
 sleep 1 && curl localhost:8081
