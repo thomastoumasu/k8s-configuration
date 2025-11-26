@@ -11,4 +11,4 @@ spec:
       nodePort: 30080 # port that is available outside. Value for nodePort can be between 30000-32767
       protocol: TCP
       port: 1234 # This is a port that is available to the cluster, in this case it can be ~ anything
-      targetPort: 3000
+      targetPort: 5000 # check env in deployment.yaml

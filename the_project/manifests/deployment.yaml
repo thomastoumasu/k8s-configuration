@@ -15,3 +15,6 @@ spec:
       containers:
         - name: the-project
           image: thomastoumasu/k8s-the_project:1.5
+          env:
+            - name: PORT
+              value: '5000'
