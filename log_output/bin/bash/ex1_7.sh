@@ -14,7 +14,7 @@ kubectl apply -f manifests/ingress.yaml
 # check that app is accessible on host port
 kubectl rollout status deployment log-output-dep
 
-sleep 5 && curl localhost:8081
+sleep 10 && curl localhost:8081
 
 # check, should see the svc on 2345 and the ingress on 80
 # kubectl get svc,ing
