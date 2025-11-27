@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: the-project
+  name: the-project-dep
 spec:
   replicas: 1
   selector:
@@ -15,3 +15,6 @@ spec:
       containers:
         - name: the-project
           image: thomastoumasu/k8s-the_project:1.5
+          env:
+            - name: PORT
+              value: '5000'

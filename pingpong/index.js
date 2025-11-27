@@ -1,13 +1,14 @@
 import express from 'express';
 
 const PORT = process.env.PORT || 3000;
-const randomString = Math.random().toString(36);
+let counter = 0;
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (_req, res) => {
-  res.send(`${new Date().toISOString()}: ${randomString}`);
+app.get('/pingpong', (_req, res) => {
+  res.send(`pong ${counter}`);
+  counter += 1;
 });
 
 app.listen(PORT, () => {

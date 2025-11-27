@@ -1,11 +1,12 @@
 {
-  "name": "log_output",
+  "name": "pingpong",
   "version": "1.0.0",
   "description": "https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: log-output-dep
+  name: pingpong-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: log-output
+      app: pingpong
   template:
     metadata:
       labels:
-        app: log-output
+        app: pingpong
     spec:
       containers:
-        - name: log-output
-          image: thomastoumasu/k8s-log_output:1.7
+        - name: pingpong
+          image: thomastoumasu/k8s-pingpong:1.9

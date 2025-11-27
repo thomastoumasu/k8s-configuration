@@ -1,0 +1,18 @@
+# ingress service - to access app from outside
+sh ../clear.sh  
+
+# create cluster
+k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
+
+# create deployment, service and ingress
+kubectl apply -f manifests/deployment.yaml
+kubectl apply -f manifests/service.yaml
+kubectl apply -f manifests/ingress.yaml
+
+# check that app is accessible on host port
+kubectl rollout status deployment the-project-dep
+
+sleep 10 && curl localhost:8081
+
+# check, should see the svc on 1234 and the ingress on 80
+# kubectl get svc,ing
