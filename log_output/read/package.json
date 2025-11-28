@@ -1,0 +1,17 @@
+{
+  "name": "log_output:read",
+  "version": "1.0.0",
+  "description": "https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "koa": "^2.16.3",
+    "path": "^0.12.7"
+  }
+}

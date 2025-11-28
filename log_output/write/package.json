@@ -1,5 +1,5 @@
 {
-  "name": "log_output",
+  "name": "log_output:write",
   "version": "1.0.0",
   "description": "https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/",
   "type": "module",
@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
   }
 }
