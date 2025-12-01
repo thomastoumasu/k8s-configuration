@@ -1,5 +1,5 @@
 {
-  "name": "the_project",
+  "name": "backend",
   "version": "1.0.0",
   "description": "\"exercise of https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes\"",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0"
   },
@@ -23,7 +24,6 @@
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "prettier": "^3.6.2"
   }

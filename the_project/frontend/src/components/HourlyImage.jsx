@@ -6,10 +6,19 @@ const HourlyImage = () => {
   const src = '/shared/hourlyImage.jpg';
   const [imagePath, setImagePath] = useState(src);
   const onError = () => {
-    console.log(`hourly image not found - defaulting to assets image. Check the storage mount at ${src}`);
+    console.log(
+      `hourly image not found - defaulting to assets image. Check the storage mount at ${src}`
+    );
     setImagePath(fallback);
   };
-  return <img style={style} src={imagePath ? imagePath : fallback} onError={onError} alt="hourly image" />;
+  return (
+    <img
+      style={style}
+      src={imagePath ? imagePath : fallback}
+      onError={onError}
+      alt="hourly image"
+    />
+  );
 };
 
 export default HourlyImage;

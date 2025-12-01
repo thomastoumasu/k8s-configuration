@@ -1,0 +1,10 @@
+
+GET http://localhost:3000/api/todos
+
+### careful with POST, do not add an empty line before the headers
+POST http://localhost:3000/api/todos/ 
+Content-Type: application/json
+
+{
+  "text": "try some tea?"
+}

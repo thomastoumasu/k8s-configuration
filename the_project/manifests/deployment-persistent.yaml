@@ -23,7 +23,7 @@ spec:
             - name: shared-image
               mountPath: /shared
         - name: frontend
-          image: thomastoumasu/k8s-frontend:1.12
+          image: thomastoumasu/k8s-frontend:1.13
           volumeMounts:
             - name: shared-image
               mountPath: /usr/share/nginx/html/shared
