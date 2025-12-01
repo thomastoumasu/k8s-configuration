@@ -15,12 +15,6 @@ k3d cluster create -p 8081:80@loadbalancer --agents 2
 
 docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
 
-kubectl delete -f manifests/persistentvolume.yaml
-kubectl delete -f manifests/persistentvolumeclaim.yaml
-kubectl delete -f manifests/deployment-persistent.yaml
-kubectl delete -f manifests/service.yaml
-kubectl delete -f manifests/ingress.yaml
-
 # create deployment and service for both apps and common ingress
 kubectl apply -f manifests/persistentvolume.yaml
 kubectl apply -f manifests/persistentvolumeclaim.yaml
