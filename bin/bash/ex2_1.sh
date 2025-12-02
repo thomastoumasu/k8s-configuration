@@ -1,4 +1,4 @@
-# persistent storage sh bin/bash/ex2_1.sh.sh
+# networking between pods sh bin/bash/ex2_1.sh
 sh clear.sh  
 # create cluster
 k3d cluster create -p 8081:80@loadbalancer --agents 2
