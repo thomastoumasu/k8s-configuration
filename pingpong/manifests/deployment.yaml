@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: thomastoumasu/k8s-pingpong:1.9
+          image: thomastoumasu/k8s-pingpong:2.1

@@ -10,14 +10,14 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: apps-svc
+                name: log-output-svc
                 port:
                   number: 2345
           - path: /pingpong
             pathType: Prefix
             backend:
               service:
-                name: apps-svc
+                name: pingpong-svc
                 port:
                   number: 1234
 # https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource

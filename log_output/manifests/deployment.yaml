@@ -12,17 +12,6 @@ spec:
       labels:
         app: log-output
     spec:
-      volumes: # Define volume
-        - name: shared-image
-          emptyDir: {}
       containers:
-        - name: write
-          image: thomastoumasu/k8s-write:1.10
-          volumeMounts: # Mount volume
-            - name: shared-image
-              mountPath: /usr/src/app/files
-        - name: read
-          image: thomastoumasu/k8s-read:1.10
-          volumeMounts: # Mount volume
-            - name: shared-image
-              mountPath: /usr/src/app/files
+        - name: log-output
+          image: thomastoumasu/k8s-log-output:2.1

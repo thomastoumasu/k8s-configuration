@@ -1,5 +1,7 @@
 k3d cluster delete
 
+# kubectl delete all --all
+
 docker rm -vf $(docker ps -aq) 
 docker rmi -f $(docker images -aq)
 # docker container prune -f
