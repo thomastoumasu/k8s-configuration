@@ -14,3 +14,4 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [1.11](https://github.com/thomastoumasu/k8s-submission/tree/1.11)
 - [1.12](https://github.com/thomastoumasu/k8s-submission/tree/1.12)
 - [1.13](https://github.com/thomastoumasu/k8s-submission/tree/1.13)
+- [2.1](https://github.com/thomastoumasu/k8s-submission/tree/2.1)
