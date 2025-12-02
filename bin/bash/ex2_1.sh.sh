@@ -32,7 +32,6 @@ kubectl apply -f ./log_output/manifests/deployment.yaml
 kubectl apply -f ./log_output/manifests/service.yaml
 kubectl apply -f ./pingpong/manifests/deployment.yaml
 kubectl apply -f ./pingpong/manifests/service.yaml
-# kubectl apply -f ./pingpong/manifests/service-counter.yaml
 kubectl apply -f manifests/ingress.yaml
 kubectl apply -f manifests/debug-pod.yaml 
 
