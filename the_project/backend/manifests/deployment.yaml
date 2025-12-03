@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: thomastoumasu/k8s-backend:1.13
+          image: thomastoumasu/k8s-backend:2.6
           env:
-            - name: PORT
+            - name: BACKEND_PORT
               value: '5000'

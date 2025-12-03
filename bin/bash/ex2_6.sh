@@ -1,5 +1,5 @@
-# new namespace for project sh bin/bash/ex2_4.sh
-# sh reset_cluster.sh
+# env variables sh bin/bash/ex2_6.sh
+sh reset_cluster.sh
 # kubectl get all --all-namespaces
 
 kubectl delete all --all -n project

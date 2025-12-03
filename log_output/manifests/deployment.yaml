@@ -13,6 +13,23 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes: # You set volumes at the Pod level, then mount them into containers inside that Pod
+        - name: config
+          configMap: # Provide the name of the ConfigMap you want to mount.
+            name: log-output-cfgmp
+            items: # An array of keys from the ConfigMap to create as files
+              - key: 'information.txt'
+                path: 'information.txt'
       containers:
         - name: log-output
-          image: thomastoumasu/k8s-log-output:2.1
+          image: thomastoumasu/k8s-log-output:2.5
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-cfgmp # The ConfigMap this value comes from.
+                  key: MESSAGE # The key to fetch.
+          volumeMounts:
+            - name: config
+              mountPath: '/config'
+              readOnly: true
