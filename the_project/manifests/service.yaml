@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: the-project-svc
+  namespace: project
 spec:
   type: ClusterIP
   selector:
@@ -9,4 +10,4 @@ spec:
   ports: # will let TCP traffic from port 1234 to port 80
     - port: 1234
       protocol: TCP
-      targetPort: 80 
+      targetPort: 80
