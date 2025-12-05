@@ -1,3 +1,5 @@
+# eventually delete previous image
+docker images
 # create images
 cd the_project/backend && docker build -t 2.8 .   
 # sanity check

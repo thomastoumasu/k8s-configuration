@@ -38,6 +38,14 @@ curl localhost:8081
 # show collections
 # db.todos.find({})
 
+# # reset mongo
+kubectl delete -f ./the_project/mongo/manifests/config-map.yaml # and change the file
+kubectl delete -f ./the_project/mongo/manifests/statefulset.yaml
+kubectl get pvc
+kubectl delete pvc/data-mongo-ss-0  
+kubectl apply -f ./the_project/mongo/manifests/config-map.yaml
+kubectl apply -f ./the_project/mongo/manifests/statefulset.yaml
+
 # # debug network: with service name
 kubectl exec -it alpine-curl -- curl http://backend-svc.project:2345/api/todos 
 kubectl exec -it alpine-curl -- curl http://frontend-svc.project:1234
