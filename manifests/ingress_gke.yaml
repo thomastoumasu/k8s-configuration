@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: twoapps-ingress
+  namespace: exercises
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: log-output-svc
+                port:
+                  number: 80
+          - path: /pingpong
+            pathType: Prefix
+            backend:
+              service:
+                name: pingpong-svc
+                port:
+                  number: 80
+# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource

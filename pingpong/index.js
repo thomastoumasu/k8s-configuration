@@ -7,6 +7,10 @@ console.log('Pingpong app: started');
 const app = express();
 app.use(express.json());
 
+app.get('/', (_req, res) => {
+  res.status(200).end();
+});
+
 app.get('/pingpong', async (_req, res) => {
   const counter = await Counter.findByPk(1);
   counter.value += 1;

@@ -27,6 +27,7 @@
 sh delete_k3scl.sh
 sh docker_clean.sh
 kubectl delete all --all -n exercises
+kubectl get all -n exercises
 sh create_gkecl.sh
 kubens exercises
 # deploy 
