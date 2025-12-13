@@ -1,4 +1,4 @@
-# # ingress gke sh bin/bash/ex3_2.sh
+# # ingress for gke, to access cluster from outside sh bin/bash/ex3_2.sh
 # https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-4/introduction-to-google-kubernetes-engine
 
 # sh delete_k3scl.sh
