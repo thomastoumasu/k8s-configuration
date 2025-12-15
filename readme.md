@@ -28,3 +28,4 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [3.2](https://github.com/thomastoumasu/k8s-submission/tree/3.2)
 - [3.3](https://github.com/thomastoumasu/k8s-submission/tree/3.3)
 - [3.3a (3.3 with ingress instead of gateway)](https://github.com/thomastoumasu/k8s-submission/tree/3.3)
+- [3.5](https://github.com/thomastoumasu/k8s-submission/tree/3.5)

@@ -44,6 +44,7 @@ gcloud compute url-maps list
 # check the-project is accessible
 kubectl get gateway my-gateway
 kubectl get httproutes
+kubectl describe httproutes ...
 # curl ADDRESS of my-gateway
 
 # debug: kubectl describe pod/... check Events:
