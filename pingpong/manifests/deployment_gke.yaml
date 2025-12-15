@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: thomastoumasu/k8s-pingpong:3.2-amd
+          image: thomastoumasu/k8s-pingpong:3.4-amd
           env:
             - name: PORT
               value: '3002'

@@ -22,7 +22,7 @@ spec:
                 path: 'information.txt'
       containers:
         - name: log-output
-          image: thomastoumasu/k8s-log-output:3.2-amd
+          image: thomastoumasu/k8s-log-output:3.4-amd
           env:
             - name: MESSAGE
               valueFrom:

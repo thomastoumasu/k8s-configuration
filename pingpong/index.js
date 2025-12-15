@@ -7,12 +7,7 @@ console.log('Pingpong app: started');
 const app = express();
 app.use(express.json());
 
-// for healthy check of gke ingress
-app.get('/', (_req, res) => {
-  res.status(200).end();
-});
-
-app.get('/pingpong', async (_req, res) => {
+app.get('/', async (_req, res) => {
   const counter = await Counter.findByPk(1);
   counter.value += 1;
   res.send(`pong ${counter.value}`);

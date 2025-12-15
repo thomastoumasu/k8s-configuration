@@ -4,10 +4,10 @@ metadata:
   name: log-output-svc
   namespace: exercises
 spec:
-  type: NodePort
+  type: ClusterIP # for gateway in gke
   selector:
     app: log-output
-  ports: # will let TCP traffic from port 80 (ingress) (could be 2345) to port 3000
-    - port: 80
+  ports: # will let TCP traffic from port 2345 to port 3000
+    - port: 2345
       protocol: TCP
       targetPort: 3000 #check env in deployment
