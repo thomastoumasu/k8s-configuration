@@ -1,4 +1,9 @@
 name: Release application
+# first create cluster as dwk-cluster, for example with
+# gcloud -v && gcloud auth login && gcloud config set project dwk-gke-480809
+# gcloud services enable container.googleapis.com
+# gcloud container clusters create dwk-cluster --zone=europe-north1-b --cluster-version=1.32 --disk-size=32 --num-nodes=3 --machine-type=e2-micro
+# gcloud container clusters get-credentials dwk-cluster --zone=europe-north1-b
 
 on:
   push:
@@ -45,7 +50,7 @@ jobs:
         run: echo "IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build
-        run: docker build --tag $IMAGE_TAG .
+        run: docker build --tag $IMAGE_TAG ./static-website
 
       - name: Publish
         run: docker push $IMAGE_TAG
@@ -56,7 +61,7 @@ jobs:
       - name: Deploy
         run: |-
           kustomize edit set image PROJECT/IMAGE=$IMAGE_TAG
-          kustomize build . | echo
-          kustomize build . | kubectl apply -f -
+          kustomize build ./static-website | echo
+          kustomize build ./static-website | kubectl apply -f -
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
