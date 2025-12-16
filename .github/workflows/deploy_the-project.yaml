@@ -80,7 +80,7 @@ jobs:
           kustomize edit set image PROJECT/FRONTEND_IMAGE=$FRONTEND_IMAGE_TAG
           kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
           kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
-          kustomize build . | echo
+          kustomize build . | cat
           kustomize build . | kubectl apply -f -
           kubectl get all -n project
           kubectl get events -n project  --sort-by='.lastTimestamp'
