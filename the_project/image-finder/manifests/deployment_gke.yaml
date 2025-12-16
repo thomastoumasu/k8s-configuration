@@ -21,7 +21,8 @@ spec:
             claimName: image-claim
       containers:
         - name: image-finder
-          image: thomastoumasu/k8s-image-finder:3.3-amd
+          # image: thomastoumasu/k8s-image-finder:3.3-amd
+          image: PROJECT/IMAGEFINDER_IMAGE
           volumeMounts:
             - name: shared-image
               mountPath: /shared

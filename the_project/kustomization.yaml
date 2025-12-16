@@ -10,3 +10,12 @@ resources:
   - image-finder/manifests/deployment_gke.yaml
   - frontend/manifests/deployment_gke_gat.yaml
   - frontend/manifests/route_gke.yaml
+images:
+  - name: PROJECT/DB_IMAGE # set by github actions for deployment on gke
+    # newName: mongo # if gke without github actions
+  - name: PROJECT/BACKEND_IMAGE
+    # newName: thomastoumasu/k8s-backend:3.3-amd
+  - name: PROJECT/IMAGEFINDER_IMAGE
+    # newName: thomastoumasu/k8s-image-finder:3.3-amd
+  - name: PROJECT/FRONTEND_IMAGE
+    # newName: thomastoumasu/k8s-frontend:3.3b-amd

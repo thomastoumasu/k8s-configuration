@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: thomastoumasu/k8s-backend:3.3-amd
+          # image: thomastoumasu/k8s-backend:3.3-amd
+          image: PROJECT/BACKEND_IMAGE # see kustomization.yaml in the root folder
           env:
             - name: BACKEND_PORT
               value: '5000'

@@ -22,7 +22,8 @@ spec:
       containers:
         - name: frontend
           # image: thomastoumasu/k8s-frontend:3.3-amd # try with localhost, does not seem to work
-          image: thomastoumasu/k8s-frontend:3.3b-amd # first copy IP in Dockerfile
+          # image: thomastoumasu/k8s-frontend:3.3b-amd # first copy IP in Dockerfile
+          image: PROJECT/FRONTEND_IMAGE
           imagePullPolicy: Always
           volumeMounts:
             - name: shared-image

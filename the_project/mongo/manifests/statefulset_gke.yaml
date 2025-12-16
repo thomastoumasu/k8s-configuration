@@ -39,7 +39,8 @@ spec:
             claimName: pvc-mongo
       containers:
         - name: mongo
-          image: mongo
+          # image: mongo
+          image: PROJECT/DB_IMAGE # see kustomization.yaml in the root folder
           ports:
             - name: web
               containerPort: 27017
