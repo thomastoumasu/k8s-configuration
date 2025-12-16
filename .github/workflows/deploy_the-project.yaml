@@ -72,6 +72,9 @@ jobs:
 
       - name: Deploy
         run: |-
+          echo "BRANCH=$BRANCH"
+          echo "second=${GITHUB_REF#refs/heads/}"
+          echo "third=${{ github.head_ref || github.ref_name }}"
           kubectl create namespace project || true
           kubectl config set-context --current --namespace=project
           cd ./the_project

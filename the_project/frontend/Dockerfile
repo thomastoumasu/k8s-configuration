@@ -6,7 +6,8 @@ RUN npm ci --omit=dev
 COPY --chown=node:node . .
 # ENV VITE_BACKEND_URL=http://localhost:8081/api/todos
 # ENV VITE_BACKEND_URL=http://localhost/api/todos
-ENV VITE_BACKEND_URL=http://34.110.191.245/api/todos
+# ENV VITE_BACKEND_URL=http://34.88.70.145/api/todos
+ENV VITE_BACKEND_URL=http://www.thomastoumasu.dpdns.org/api/todos
 RUN npm run build
 USER node
 
