@@ -1,9 +1,10 @@
 name: Release application
-# first create cluster as dwk-cluster, for example with
+# first create cluster as dwk-cluster and namespace exercises, for example with
 # gcloud -v && gcloud auth login && gcloud config set project dwk-gke-480809
 # gcloud services enable container.googleapis.com
 # gcloud container clusters create dwk-cluster --zone=europe-north1-b --cluster-version=1.32 --disk-size=32 --num-nodes=3 --machine-type=e2-micro
 # gcloud container clusters get-credentials dwk-cluster --zone=europe-north1-b
+# kubectl create namespace exercises
 
 on:
   push:
@@ -60,9 +61,12 @@ jobs:
 
       - name: Deploy
         run: |-
+          kubens exercises
           cd ./static-website
           kustomize edit set image PROJECT/IMAGE=$IMAGE_TAG
           kustomize build . | echo
           kustomize build . | kubectl apply -f -
+          kubectl get all -n exercises
+          kubectl get events -n exercises  --sort-by='.lastTimestamp'
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
