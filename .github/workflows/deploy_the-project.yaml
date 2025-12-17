@@ -85,7 +85,7 @@ jobs:
       - name: Deploy
         run: |-
           echo "BRANCH=$BRANCH"
-          echo "BRANCH2=${ GITHUB_REF#refs/heads/ }"
+          echo "BRANCH2=${GITHUB_REF#refs/heads/}"
           echo "BRANCH3=$BRANCH3"
           echo "NAMESPACE=$NAMESPACE"
           kubectl create namespace $NAMESPACE || true
