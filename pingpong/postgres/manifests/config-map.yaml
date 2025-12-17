@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-cfgmp
+  namespace: exercises
+data:
+  # property-like keys; each key maps to a simple value
+  POSTGRES_PASSWORD: 'mysecretpassword'
+  # file-like keys
+  init.sql: |
+    CREATE TABLE counters (id SERIAL PRIMARY KEY, value smallint);
+    insert into counters (value) values (0);

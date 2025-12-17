@@ -1,3 +1,4 @@
+# nodeport service - to access app from outside
 sh ../clear.sh  
 
 # create cluster

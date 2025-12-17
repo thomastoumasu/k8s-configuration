@@ -4,10 +4,10 @@ metadata:
   name: pingpong-svc
   namespace: exercises
 spec:
-  type: ClusterIP
+  type: ClusterIP # for gateway in gke
   selector:
     app: pingpong
   ports: # will let TCP traffic from port 1234 to port 3002
     - port: 1234
       protocol: TCP
-      targetPort: 3002 #check env in deployment above
+      targetPort: 3002 #check env in deployment

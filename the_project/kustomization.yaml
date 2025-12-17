@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - manifests/gateway.yaml
+  - mongo/manifests/config-map.yaml
+  - mongo/manifests/statefulset_gke.yaml
+  - backend/manifests/deployment_gke_gat.yaml
+  - backend/manifests/route_gke.yaml
+  - manifests/persistentvolumeclaim_gke.yaml
+  - image-finder/manifests/deployment_gke.yaml
+  - frontend/manifests/deployment_gke_gat.yaml
+  - frontend/manifests/route_gke.yaml
+images:
+  - name: PROJECT/DB_IMAGE # set by github actions for deployment on gke
+    # newName: mongo # if gke without github actions
+  - name: PROJECT/BACKEND_IMAGE
+    # newName: thomastoumasu/k8s-backend:3.3-amd
+  - name: PROJECT/IMAGEFINDER_IMAGE
+    # newName: thomastoumasu/k8s-image-finder:3.3-amd
+  - name: PROJECT/FRONTEND_IMAGE
+    # newName: thomastoumasu/k8s-frontend:3.3b-amd

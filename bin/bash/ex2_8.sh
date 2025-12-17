@@ -19,7 +19,8 @@ kubectl apply -f ./the_project/image-finder/manifests/deployment.yaml
 # kubectl wait --for=condition=Ready $POD
 kubectl apply -f ./the_project/backend/manifests/deployment.yaml
 kubectl apply -f ./the_project/manifests/ingress.yaml
-kubectl apply -f manifests/debug-pod.yaml 
+kubectl apply -f manifests/curl.yaml 
+kubectl apply -f manifests/busybox.yaml 
 
 # check the-project is accessible on host port
 kubectl rollout status deployment frontend-dep

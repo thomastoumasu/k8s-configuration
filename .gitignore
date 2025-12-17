@@ -1,4 +1,6 @@
 .DS_Store
+postgres-data
+private-key.json
 # template from https://github.com/github/gitignore/blob/main/Node.gitignore
 
 # Logs

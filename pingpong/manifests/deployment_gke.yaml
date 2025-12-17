@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: thomastoumasu/k8s-pingpong:2.7
+          image: thomastoumasu/k8s-pingpong:3.4-amd
           env:
             - name: PORT
               value: '3002'
             - name: DATABASE_URL
-              value: 'postgres://postgres:mysecretpassword@postgres-svc:5432/postgres'
+              value: 'postgres://postgres:mysecretpassword@postgres-svc.exercises:5432/postgres'

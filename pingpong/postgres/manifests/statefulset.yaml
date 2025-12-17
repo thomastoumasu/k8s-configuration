@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-ss
+  namespace: exercises
+spec:
+  serviceName: postgres-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      volumes: # You set volumes at the Pod level, then mount them into containers inside that Pod
+        - name: config
+          configMap: # Provide the name of the ConfigMap you want to mount.
+            name: postgres-cfgmp
+            items: # An array of keys from the ConfigMap to create as files
+              - key: 'init.sql'
+                path: 'init.sql'
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - name: web
+              containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-cfgmp # The ConfigMap this value comes from.
+                  key: POSTGRES_PASSWORD # The key to fetch.
+          volumeMounts:
+            - name: config
+              mountPath: '/docker-entrypoint-initdb.d/'
+              readOnly: true
+            - name: data
+              mountPath: '/var/lib/postgresql'
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        namespace: exercises
+      spec:
+        accessModes: ['ReadWriteOnce']
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  namespace: exercises
+  # labels:
+  #   app: postgres
+spec:
+  ports:
+    - port: 5432
+      name: web
+  clusterIP: None
+  selector:
+    app: postgres

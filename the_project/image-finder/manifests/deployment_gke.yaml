@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-finder-dep
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-finder
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: image-finder
+    spec:
+      volumes:
+        - name: shared-image
+          persistentVolumeClaim:
+            claimName: image-claim
+      containers:
+        - name: image-finder
+          # image: thomastoumasu/k8s-image-finder:3.3-amd
+          image: PROJECT/IMAGEFINDER_IMAGE
+          volumeMounts:
+            - name: shared-image
+              mountPath: /shared

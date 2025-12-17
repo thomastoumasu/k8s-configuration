@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mongo
+  namespace: project
+spec:
+  # storageClassName: standard-rwo
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-ss
+  namespace: project
+spec:
+  serviceName: mongo-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      volumes: # You set volumes at the Pod level, then mount them into containers inside that Pod
+        - name: config
+          configMap: # Provide the name of the ConfigMap you want to mount.
+            name: mongo-cfgmp
+            items: # An array of keys from the ConfigMap to create as files
+              - key: 'mongo-init.js'
+                path: 'mongo-init.js'
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-mongo
+      containers:
+        - name: mongo
+          # image: mongo
+          image: PROJECT/DB_IMAGE # see kustomization.yaml in the root folder
+          ports:
+            - name: web
+              containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-cfgmp # The ConfigMap this value comes from.
+                  key: MONGO_INITDB_ROOT_USERNAME # The key to fetch.
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-cfgmp
+                  key: MONGO_INITDB_ROOT_PASSWORD
+            - name: MONGO_INITDB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-cfgmp
+                  key: MONGO_INITDB_DATABASE
+          volumeMounts:
+            - name: config
+              mountPath: '/docker-entrypoint-initdb.d/'
+              readOnly: true
+            - name: data
+              mountPath: '/data/db'
+              subPath: 'mongo'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-svc
+  namespace: project
+  # labels:
+  #   app: mongo
+spec:
+  ports:
+    - port: 27017
+      name: web
+  clusterIP: None
+  selector:
+    app: mongo

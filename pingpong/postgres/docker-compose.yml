@@ -1,0 +1,12 @@
+services:
+  postgres: # name of the service
+    image: postgres # Runs this image, as foldername/nameoftheservice
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # sets up db
+      - ./postgres-data:/var/lib/postgresql # persists the data
+    container_name: postgres
+# psql -U postgres postgres

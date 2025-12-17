@@ -1,20 +1,22 @@
 import express from 'express';
-const PORT = process.env.PORT || 3002;
+import { PORT } from './utils/config.js';
+import { Counter } from './postgres/postgres.js';
 
 console.log('Pingpong app: started');
-
-let counter = 0;
 
 const app = express();
 app.use(express.json());
 
-app.get('/pingpong', (_req, res) => {
-  counter += 1;
-  res.send(`pong ${counter}`);
+app.get('/', async (_req, res) => {
+  const counter = await Counter.findByPk(1);
+  counter.value += 1;
+  res.send(`pong ${counter.value}`);
+  await counter.save();
 });
 
-app.get('/counter', (_req, res) => {
-  res.send(counter);
+app.get('/counter', async (_req, res) => {
+  const counter = await Counter.findByPk(1);
+  res.send(counter.value);
 });
 
 app.listen(PORT, () => {
