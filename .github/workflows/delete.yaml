@@ -2,19 +2,43 @@ name: Delete branch development environment on branch deletion
 on:
   delete:
 
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+
 jobs:
   delete-environment:
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Use gcloud CLI'
+        run: gcloud info
+
+      - name: 'Get GKE credentials'
+        uses: 'google-github-actions/get-gke-credentials@v2'
+        with:
+          cluster_name: '${{ env.GKE_CLUSTER }}'
+          project_id: '${{ env.PROJECT_ID }}'
+          location: '${{ env.GKE_ZONE }}'
+
       - name: Set namespace to delete
         run: echo "NAMESPACE=${{ github.event.ref }}" >> $GITHUB_ENV
+
       - name: Delete development environment
         run: |
           kubectl delete all --all -n $NAMESPACE
           kubectl delete gateway my-gateway -n $NAMESPACE
           kubectl delete $(kubectl get httproutes -o name -n $NAMESPACE)
           kubectl delete namespace $NAMESPACE
+
       - name: Delete corresponding images
         run: |
           echo "would be nice, try when spare time"

@@ -45,7 +45,7 @@ gcloud compute url-maps list
 kubectl get gateway my-gateway
 kubectl get httproutes
 kubectl describe httproutes ...
-# curl ADDRESS of my-gateway
+# curl ADDRESS of my-gateway 
 
 # debug: kubectl describe pod/... check Events:
 # debug: kubectl logs -f pod/...
