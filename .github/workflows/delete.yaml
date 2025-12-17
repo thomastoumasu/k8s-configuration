@@ -7,10 +7,13 @@ jobs:
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
+      - name: Set namespace to delete
+        run: echo "NAMESPACE=${{ github.event.ref }}" >> $GITHUB_ENV
       - name: Delete development environment
         run: |
-          echo "NAMESPACE=${{ github.event.ref }}" >> $GITHUB_ENV
           kubectl delete all --all -n $NAMESPACE
+          kubectl delete gateway my-gateway -n $NAMESPACE
+          kubectl delete $(kubectl get httproutes -o name -n $NAMESPACE)
       - name: Delete corresponding images
         run: |
           echo "would be nice, try when spare time"
