@@ -28,25 +28,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: google-github-actions/auth@v2
-        with:
-          credentials_json: '${{ secrets.GKE_SA_KEY }}'
+      # - uses: google-github-actions/auth@v2
+      #   with:
+      #     credentials_json: '${{ secrets.GKE_SA_KEY }}'
 
-      - name: 'Set up Cloud SDK'
-        uses: google-github-actions/setup-gcloud@v2
+      # - name: 'Set up Cloud SDK'
+      #   uses: google-github-actions/setup-gcloud@v2
 
-      - name: 'Use gcloud CLI'
-        run: gcloud info
+      # - name: 'Use gcloud CLI'
+      #   run: gcloud info
 
-      - name: 'Get GKE credentials'
-        uses: 'google-github-actions/get-gke-credentials@v2'
-        with:
-          cluster_name: '${{ env.GKE_CLUSTER }}'
-          project_id: '${{ env.PROJECT_ID }}'
-          location: '${{ env.GKE_ZONE }}'
+      # - name: 'Get GKE credentials'
+      #   uses: 'google-github-actions/get-gke-credentials@v2'
+      #   with:
+      #     cluster_name: '${{ env.GKE_CLUSTER }}'
+      #     project_id: '${{ env.PROJECT_ID }}'
+      #     location: '${{ env.GKE_ZONE }}'
 
-      - name: 'Set up Docker Buildx'
-        run: gcloud auth configure-docker "$REGISTRY"
+      # - name: 'Set up Docker Buildx'
+      #   run: gcloud auth configure-docker "$REGISTRY"
 
       - name: 'Form the images names'
         run: |-
