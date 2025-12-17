@@ -16,8 +16,8 @@ env:
   IMAGEFINDER_IMAGE: image-finder
   DB_IMAGE: mongo
   SERVICE: backend-dep
-  BRANCH: ${{ github.ref_name }}
-  BRANCH3: ${{ github.head_ref || github.ref_name }}
+  # BRANCH: ${{ github.ref_name }} or ${GITHUB_REF#refs/heads/}, check https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-4/deployment-pipeline
+  BRANCH: ${{ github.head_ref || github.ref_name }}
 
 jobs:
   build-publish-deploy:
@@ -31,21 +31,21 @@ jobs:
         with:
           credentials_json: '${{ secrets.GKE_SA_KEY }}'
 
-      # - name: 'Set up Cloud SDK'
-      #   uses: google-github-actions/setup-gcloud@v2
+      - name: 'Set up Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
 
-      # - name: 'Use gcloud CLI'
-      #   run: gcloud info
+      - name: 'Use gcloud CLI'
+        run: gcloud info
 
-      # - name: 'Get GKE credentials'
-      #   uses: 'google-github-actions/get-gke-credentials@v2'
-      #   with:
-      #     cluster_name: '${{ env.GKE_CLUSTER }}'
-      #     project_id: '${{ env.PROJECT_ID }}'
-      #     location: '${{ env.GKE_ZONE }}'
+      - name: 'Get GKE credentials'
+        uses: 'google-github-actions/get-gke-credentials@v2'
+        with:
+          cluster_name: '${{ env.GKE_CLUSTER }}'
+          project_id: '${{ env.PROJECT_ID }}'
+          location: '${{ env.GKE_ZONE }}'
 
-      # - name: 'Set up Docker Buildx'
-      #   run: gcloud auth configure-docker "$REGISTRY"
+      - name: 'Set up Docker Buildx'
+        run: gcloud auth configure-docker "$REGISTRY"
 
       - name: 'Form the images names'
         run: |-
@@ -54,39 +54,37 @@ jobs:
           echo "IMAGEFINDER_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGEFINDER_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
           echo "DB_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$DB_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
-      # - name: Build
-      #   run: |-
-      #     docker build --platform linux/amd64 --tag $BACKEND_IMAGE_TAG ./the_project/backend
-      #     docker build --platform linux/amd64 --tag $FRONTEND_IMAGE_TAG ./the_project/frontend
-      #     docker build --platform linux/amd64 --tag $IMAGEFINDER_IMAGE_TAG ./the_project/image-finder
-      #     docker build --platform linux/amd64 --tag $DB_IMAGE_TAG ./the_project/mongo
+      - name: Build
+        run: |-
+          docker build --platform linux/amd64 --tag $BACKEND_IMAGE_TAG ./the_project/backend
+          docker build --platform linux/amd64 --tag $FRONTEND_IMAGE_TAG ./the_project/frontend
+          docker build --platform linux/amd64 --tag $IMAGEFINDER_IMAGE_TAG ./the_project/image-finder
+          docker build --platform linux/amd64 --tag $DB_IMAGE_TAG ./the_project/mongo
 
-      # - name: Publish
-      #   run: |-
-      #     docker push $BACKEND_IMAGE_TAG
-      #     docker push $FRONTEND_IMAGE_TAG
-      #     docker push $IMAGEFINDER_IMAGE_TAG
-      #     docker push $DB_IMAGE_TAG
+      - name: Publish
+        run: |-
+          docker push $BACKEND_IMAGE_TAG
+          docker push $FRONTEND_IMAGE_TAG
+          docker push $IMAGEFINDER_IMAGE_TAG
+          docker push $DB_IMAGE_TAG
 
-      # - name: Set up Kustomize
-      #   uses: imranismail/setup-kustomize@v2.1.0
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2.1.0
 
       - name: Set namespace
         run: >-
-          case $BRANCH3 in \
+          case $BRANCH in \
             main)
               echo "NAMESPACE="project"" >> $GITHUB_ENV
               ;;
             *)
-              echo "NAMESPACE=$BRANCH3" >> $GITHUB_ENV
+              echo "NAMESPACE=$BRANCH" >> $GITHUB_ENV
               ;;
           esac
 
       - name: Deploy
         run: |-
           echo "BRANCH=$BRANCH"
-          echo "BRANCH2=${GITHUB_REF#refs/heads/}"
-          echo "BRANCH3=$BRANCH3"
           echo "NAMESPACE=$NAMESPACE"
           kubectl create namespace $NAMESPACE || true
           kubectl config set-context --current --namespace=$NAMESPACE
@@ -97,9 +95,9 @@ jobs:
           kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
           kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
           kustomize build . | cat
-          # kustomize build . | kubectl apply -f -
-          # kubectl get all -n project
-          # kubectl get events -n project  --sort-by='.lastTimestamp'
-          # kubectl rollout status deployment $SERVICE
-          # kubectl get services -o wide
-          # kubectl get gateway my-gateway
+          kustomize build . | kubectl apply -f -
+          kubectl get all -n project
+          kubectl get events -n project  --sort-by='.lastTimestamp'
+          kubectl rollout status deployment $SERVICE
+          kubectl get services -o wide
+          kubectl get gateway my-gateway

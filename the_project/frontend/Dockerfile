@@ -4,9 +4,8 @@ WORKDIR /usr/src/app
 COPY --chown=node:node package* ./
 RUN npm ci --omit=dev 
 COPY --chown=node:node . .
-# ENV VITE_BACKEND_URL=http://localhost:8081/api/todos
-# ENV VITE_BACKEND_URL=http://localhost/api/todos
-# ENV VITE_BACKEND_URL=http://34.88.70.145/api/todos
+# ENV VITE_BACKEND_URL=http://localhost:8081/api/todos # for k3s, see cluster creation in create_k3scl
+# ENV VITE_BACKEND_URL=http://34.88.70.145/api/todos # for gke: IP allocated by gke to its gateway or ingress
 ENV VITE_BACKEND_URL=http://www.thomastoumasu.dpdns.org/api/todos
 RUN npm run build
 USER node

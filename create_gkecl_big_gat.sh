@@ -1,3 +1,8 @@
+# kubectl delete all --all -n project
+# sh delete_k3scl.sh
+# sh delete_gkecl.sh
+# sh docker_clean.sh
+
 gcloud -v
 gcloud auth login
 gcloud config set project dwk-gke-480809
