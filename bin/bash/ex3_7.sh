@@ -1,11 +1,12 @@
 # 3.7 main deployment on namespace project and branch deployment on namespace branch
 
 # # create a static IP - does not work with global gateway
-# gcloud compute addresses create my-ip --region=europe-north1 --network-tier=STANDARD
-# gcloud compute addresses create my-ip --region=europe-north1
+# gcloud compute addresses create my-ip (--region=europe-north1 (--network-tier=STANDARD))
 # gcloud compute addresses describe my-ip --region=europe-north1
+# gcloud compute addresses create my-ip --global
+# gcloud compute addresses describe my-ip --global  // 34.54.85.237
 # # just wait for gateway to allocate an IP and add it to cloudfare DNS record
-# 34.54.85.237
+# 34.110.191.245
 # use "www.thomastoumasu.dpdns.org" for main aka namespace project
 # use "www.thomastoumasu.xx.kg" for branch aka namespace branch
 
