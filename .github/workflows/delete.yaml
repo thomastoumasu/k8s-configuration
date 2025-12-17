@@ -10,3 +10,8 @@ jobs:
       - name: Delete development environment
         run: |
           echo "NAMESPACE=${{ github.event.ref }}" >> $GITHUB_ENV
+          kubectl delete all --all -n $NAMESPACE
+
+      - name: Delete corresponding images
+        run: |
+          echo "NAMESPACE=${{ github.event.ref }}" >> $GITHUB_ENV

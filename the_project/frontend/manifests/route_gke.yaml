@@ -7,7 +7,7 @@ spec:
   parentRefs:
     - name: my-gateway
   hostnames:
-    - www.thomastoumasu.dpdns.org
+    - www.thomastoumasu.xx.kg
   rules:
     - matches:
         - path:
