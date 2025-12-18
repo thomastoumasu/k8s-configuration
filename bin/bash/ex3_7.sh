@@ -1,6 +1,8 @@
 # 3.7 main deployment on namespace project and branch deployment on namespace branch
+# both deployments sharing one gateway to reduce costs
+# (to have two gateways, just remove the infra namespace and create both gateways in the respective main and branch namespaces, you then get two different gateway IPs)
 
-# # just wait for gateway to allocate an IP and add it to cloudfare DNS record
+# # allocate a global IP for the gateway or just wait for gateway to allocate an IP and then add it to cloudfare DNS record
 # 34.110.191.245
 # use "www.thomastoumasu.dpdns.org" for main aka namespace project
 # use "www.thomastoumasu.xx.kg" for branch aka namespace branch
