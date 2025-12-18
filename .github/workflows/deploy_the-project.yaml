@@ -98,6 +98,7 @@ jobs:
           echo "The application will be deployed on namespace: NAMESPACE=$NAMESPACE"
           cd ./the_project/kustomize/overlays/${KUSTOM}
           kubectl create namespace $NAMESPACE || true
+          kubectl label namespaces $NAMESPACE shared-gateway-access=true --overwrite=true
           kubectl config set-context --current --namespace=$NAMESPACE
           kustomize edit set namespace $NAMESPACE
           kustomize edit set image PROJECT/BACKEND_IMAGE=$BACKEND_IMAGE_TAG
