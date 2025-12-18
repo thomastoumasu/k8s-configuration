@@ -1,0 +1,10 @@
+[
+  {
+    "name": "delete-branch-images",
+    "action": { "type": "Delete" },
+    "condition": {
+      "tagState": "tagged",
+      "tagPrefixes": ["test-sharedgta"]
+    }
+  }
+]

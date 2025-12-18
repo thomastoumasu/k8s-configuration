@@ -1,0 +1,28 @@
+name: test
+
+on:
+  push:
+
+jobs:
+  create-delete-policy:
+    name: Create delete policy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create file
+        run: >-
+          echo \
+          "[
+            {
+              "name": "delete-branch-images",
+              "action": { "type": "Delete" },
+              "condition": {
+                "tagState": "tagged",
+                "tagPrefixes": ["test-sharedgta"]
+              }
+            }
+          ]"
+          > delete.json
+
+      - name: Print file
+        run: cat delete.json
