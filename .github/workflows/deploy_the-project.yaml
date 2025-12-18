@@ -113,3 +113,5 @@ jobs:
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
           kubectl get gateway shared-gateway -n infra
+          # gcloud compute url-maps list
+          # kubectl describe gateway shared-gateway -n infra

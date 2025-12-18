@@ -6,6 +6,7 @@ metadata:
 spec:
   parentRefs:
     - name: shared-gateway
+      namespace: infra
   hostnames: []
     # - www.thomastoumasu.xx.kg # for branch
     # - www.thomastoumasu.dpdns.org # for main
