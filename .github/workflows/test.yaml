@@ -21,7 +21,7 @@ jobs:
               "action": { "type": "Delete" },
               "condition": {
                 "tagState": "tagged",
-                "tagPrefixes": ['$NAMESPACE']
+                "tagPrefixes": ['"$NAMESPACE"' ]
               }
             }
           ]'
