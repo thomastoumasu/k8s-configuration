@@ -1,7 +1,7 @@
-# 3.8 automated deployment of main on namespace project and of branch on namespace branch
+# 3.8 automated deployment on pull of main on namespace project and of branch on namespace branch
 # both deployments sharing one gateway to reduce costs: https://gateway-api.sigs.k8s.io/guides/multiple-ns/
 # (to have two gateways, just remove the infra namespace and create both gateways in the respective main and branch namespaces, you then get two different gateway IPs)
-# check .github/workflows/deploy_the-project.yaml
+# first check .github/workflows/deploy_the-project.yaml
 
 # # allocate a global IP for the gateway or just wait for gateway to allocate an IP and then add it to cloudfare DNS record
 # 34.110.191.245
@@ -11,7 +11,7 @@
 
 # both deployment work and are accessible under different domains
 # can still be improved:
-# 1. Sometimes bind error on the volume shared between image-finder and frontend. Not sure why it works sometimes actually. Either use a ReadWriteMany, or put both apps in one pod.
+# 1. Sometimes bind error on the volume shared between image-finder and frontend. Fix: Either use a ReadWriteMany, or put both apps in one pod.
 # 2. delete images programmatically
 # gcloud artifacts files list --project=dwk-gke-480809 --location=europe-north1 --repository=my-repository --package=backend --tag=1.0-dev
 # gcloud artifacts docker images list europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend --include-tags
