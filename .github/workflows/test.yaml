@@ -15,7 +15,7 @@ jobs:
       - name: Create file
         run: >-
           echo \
-          "[
+          '[
             {
               "name": "delete-branch-images",
               "action": { "type": "Delete" },
@@ -24,7 +24,7 @@ jobs:
                 "tagPrefixes": ["$NAMESPACE"]
               }
             }
-          ]"
+          ]'
           > delete.json
 
       - name: Print file
