@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - manifests/gateway.yaml
   - mongo/manifests/config-map.yaml
   - mongo/manifests/statefulset_gke.yaml
   - backend/manifests/deployment_gke_gat.yaml

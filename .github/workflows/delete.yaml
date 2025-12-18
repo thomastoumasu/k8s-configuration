@@ -35,7 +35,7 @@ jobs:
       - name: Delete development environment
         run: |
           kubectl delete all --all -n $NAMESPACE
-          kubectl delete gateway my-gateway -n $NAMESPACE
+          kubectl delete gateway shared-gateway -n $NAMESPACE
           kubectl delete $(kubectl get httproutes -o name -n $NAMESPACE)
           kubectl delete namespace $NAMESPACE
 

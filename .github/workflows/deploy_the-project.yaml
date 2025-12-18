@@ -1,6 +1,6 @@
 name: Release application
 # first create cluster as dwk-cluster, for example with sh create_gkecl_big_gat.sh
-# gateway IP must be known and built into ENV VITE_BACKEND_URL in frontend Dockerfile
+# gateway IP must be known and built into ENV VITE_BACKEND_URL in frontend Dockerfile so that frontend can reach backend
 
 on:
   push:
@@ -71,7 +71,12 @@ jobs:
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
 
-      - name: Set namespace
+      - name: Deploy shared gateway on "infra" namespace
+        run: |-
+          kubectl config set-context --current --namespace=infra 
+          kubectl apply -f ./the_project/manifests/gateway_shared.yaml
+
+      - name: Define namespace for application deployment
         run: >-
           case $BRANCH in \
             main)
@@ -82,22 +87,24 @@ jobs:
               ;;
           esac
 
-      - name: Deploy
+      - name: Deploy application on its specific namespace
         run: |-
-          echo "BRANCH=$BRANCH"
-          echo "NAMESPACE=$NAMESPACE"
+          echo "The code is on branch: BRANCH=$BRANCH"
+          echo "The application will be deployed on namespace: NAMESPACE=$NAMESPACE"
+          cd ./the_project
           kubectl create namespace $NAMESPACE || true
           kubectl config set-context --current --namespace=$NAMESPACE
-          cd ./the_project
           kustomize edit set namespace $NAMESPACE
           kustomize edit set image PROJECT/BACKEND_IMAGE=$BACKEND_IMAGE_TAG
           kustomize edit set image PROJECT/FRONTEND_IMAGE=$FRONTEND_IMAGE_TAG
           kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
           kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
+          echo "Manifests about to be deployed: "
           kustomize build . | cat
           kustomize build . | kubectl apply -f -
+          echo "Ressources deployed: "
           kubectl get all -n project
           kubectl get events -n project  --sort-by='.lastTimestamp'
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
-          kubectl get gateway my-gateway
+          kubectl get gateway shared-gateway

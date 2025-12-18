@@ -5,7 +5,7 @@ metadata:
   namespace: project
 spec:
   parentRefs:
-    - name: my-gateway
+    - name: shared-gateway
   hostnames:
     - www.thomastoumasu.dpdns.org # for main
     # - www.thomastoumasu.xx.kg # for branch
