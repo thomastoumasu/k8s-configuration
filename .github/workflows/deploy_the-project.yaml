@@ -112,4 +112,4 @@ jobs:
           kubectl get events -n project  --sort-by='.lastTimestamp'
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
-          kubectl get gateway shared-gateway
+          kubectl get gateway shared-gateway -n infra

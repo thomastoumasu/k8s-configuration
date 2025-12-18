@@ -13,3 +13,11 @@ patches:
         path: /spec/hostnames
         value:
           - www.thomastoumasu.dpdns.org
+  - target:
+      kind: HTTPRoute
+      name: backend-route
+    patch: |
+      - op: replace
+        path: /spec/hostnames
+        value:
+          - www.thomastoumasu.dpdns.org

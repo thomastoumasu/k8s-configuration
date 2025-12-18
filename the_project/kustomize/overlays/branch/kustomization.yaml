@@ -13,3 +13,11 @@ patches:
         path: /spec/hostnames
         value:
           - www.thomastoumasu.xx.kg
+  - target:
+      kind: HTTPRoute
+      name: backend-route
+    patch: |
+      - op: replace
+        path: /spec/hostnames
+        value:
+          - www.thomastoumasu.xx.kg
