@@ -1,0 +1,47 @@
+name: Backup db
+on:
+  push:
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+
+jobs:
+  backup-db:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Use gcloud CLI'
+        run: gcloud info
+
+      # - name: 'Get GKE credentials'
+      #   uses: 'google-github-actions/get-gke-credentials@v2'
+      #   with:
+      #     cluster_name: '${{ env.GKE_CLUSTER }}'
+      #     project_id: '${{ env.PROJECT_ID }}'
+      #     location: '${{ env.GKE_ZONE }}'
+
+      - name: Create test file
+        run: >-
+          echo \
+          '[
+            {
+              "name": "delete-branch-images",
+              "action": { "type": "Delete" },
+              "condition": {
+                "tagState": "tagged",
+                "tagPrefixes": ["yeah"]
+              }
+            }
+          ]'
+          > delete-policy.json
+
+      - name: Send File to Google Global Storage
+        run: gcloud storage cp delete-policy.json gs://thomastoumasu_k8s-bucket
