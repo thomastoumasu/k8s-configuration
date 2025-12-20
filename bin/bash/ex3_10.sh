@@ -7,8 +7,12 @@
 # build dumper image
 cd the_project/mongo/dumper
 docker build --platform linux/amd64 -t 3.10 . 
-docker tag 3.10 thomastoumasu/k8s-mongo-dumper:3.10b-amd && docker push thomastoumasu/k8s-mongo-dumper:3.10b-amd
+docker tag 3.10 thomastoumasu/k8s-mongo-dumper:3.10c-amd && docker push thomastoumasu/k8s-mongo-dumper:3.10c-amd
 kubectl apply -f ./the_project/mongo/manifests/dumper.yaml
+
+
+# kubectl run dumper --image=3.10 --env="KEY=private-key.json"
+
 
 kubectl describe pod/dumper 
 kubectl logs -f dumper 

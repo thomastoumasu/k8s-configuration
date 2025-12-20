@@ -1,7 +1,9 @@
 FROM mongo
 WORKDIR /usr/src/app
 COPY --chmod=755 dumper.sh ./
-COPY --chmod=555 private-key.json ./
+ARG KEY
+ENV KEY=${KEY}
+# COPY --chmod=555 private-key.json ./
 USER root
 RUN apt-get update && \
     apt-get install -y curl gnupg && \
