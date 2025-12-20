@@ -1,6 +1,8 @@
 name: Backup db
 on:
   push:
+  # schedule:
+  # - cron: "* * * * *"
 
 env:
   BUCKET: thomastoumasu_k8s-bucket
@@ -26,9 +28,6 @@ jobs:
           sudo apt install ./mongodb-database-tools-*-100.6.1.deb
           mongorestore --version
 
-      - name: 'Dump'
-        run: mongodump --uri=$MONGO_URI --out $(pwd)
-
       # - name: Create test file
       #   run: >-
       #     echo \
@@ -44,7 +43,20 @@ jobs:
       #     ]'
       #     > delete-policy.json
 
-      - name: Send Dump to Google Global Storage
+      # - name: Send File to Google Global Storage
+      #   run: gcloud storage cp delete-policy.json gs://${BUCKET}
+
+      - name: 'Dump'
+        run: mongodump --uri=$MONGO_URI --out $(pwd)
+
+      - name: 'Set current date as env variable'
+        # run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
         run: |
-          # gcloud storage cp delete-policy.json gs://${BUCKET}
-          gcloud storage cp ./the_database/todos.bson gs://${BUCKET}
+          NOW=$(date +'%Y-%m-%dT%H-%M-%S')
+          echo "FILENAME="./the_database/todos-${NOW}.bson"" >> $GITHUB_ENV
+
+      - name: 'Rename dump'
+        run: mv ./the_database/todos.bson $FILENAME
+
+      - name: 'Send Dump to Google Global Storage'
+        run: gcloud storage cp $FILENAME gs://${BUCKET}
