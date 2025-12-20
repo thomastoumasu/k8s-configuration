@@ -4,6 +4,7 @@ on:
 
 env:
   BUCKET: thomastoumasu_k8s-bucket
+  MONGO_URI: mongodb://the_username:the_password@mongo-svc.project:27017/the_database
 
 jobs:
   backup-db:
@@ -19,20 +20,31 @@ jobs:
       - name: 'Use gcloud CLI'
         run: gcloud info
 
-      - name: Create test file
-        run: >-
-          echo \
-          '[
-            {
-              "name": "delete-branch-images",
-              "action": { "type": "Delete" },
-              "condition": {
-                "tagState": "tagged",
-                "tagPrefixes": ["yeah"]
-              }
-            }
-          ]'
-          > delete-policy.json
+      - name: 'Setup mongodb-tools'
+        run: |
+          wget https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.6.1.deb
+          sudo apt install ./mongodb-database-tools-*-100.6.1.deb
+          mongorestore --version
 
-      - name: Send File to Google Global Storage
-        run: gcloud storage cp delete-policy.json gs://${BUCKET}
+      - name: 'Dump'
+        run: mongodump --uri=$MONGO_URI --out $(pwd)
+
+      # - name: Create test file
+      #   run: >-
+      #     echo \
+      #     '[
+      #       {
+      #         "name": "delete-branch-images",
+      #         "action": { "type": "Delete" },
+      #         "condition": {
+      #           "tagState": "tagged",
+      #           "tagPrefixes": ["yeah"]
+      #         }
+      #       }
+      #     ]'
+      #     > delete-policy.json
+
+      - name: Send Dump to Google Global Storage
+        run: |
+          # gcloud storage cp delete-policy.json gs://${BUCKET}
+          gcloud storage cp ./the_database/todos.bson gs://${BUCKET}
