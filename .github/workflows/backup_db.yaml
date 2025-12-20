@@ -7,7 +7,7 @@ on:
 env:
   BUCKET: thomastoumasu_k8s-bucket
   MONGO_URI: mongodb://the_username:the_password@mongo-svc.project:27017/the_database
-  SERVICE_KEY: ${{ secrets.GKE_SA_KEY }}
+  SERVICE_KEY: '${{ secrets.GKE_SA_KEY }}'
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: dwk-cluster
   GKE_ZONE: europe-north1-b
