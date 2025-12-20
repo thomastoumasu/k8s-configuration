@@ -46,10 +46,10 @@ jobs:
       # - name: Send File to Google Global Storage
       #   run: gcloud storage cp delete-policy.json gs://${BUCKET}
 
-      - name: 'Dump'
+      - name: 'Dump the mongo db'
         run: mongodump --uri=$MONGO_URI --out $(pwd)
 
-      - name: 'Set current date as env variable'
+      - name: 'Set filename to be used for the dump in Google GLobal Storage'
         # run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
         run: |
           NOW=$(date +'%Y-%m-%dT%H-%M-%S')
@@ -58,5 +58,5 @@ jobs:
       - name: 'Rename dump'
         run: mv ./the_database/todos.bson $FILENAME
 
-      - name: 'Send Dump to Google Global Storage'
+      - name: 'Send dump to Google Global Storage'
         run: gcloud storage cp $FILENAME gs://${BUCKET}
