@@ -49,7 +49,7 @@ jobs:
       - name: Deploy dumper pod
         run: |
           echo '${{ secrets.GKE_SA_KEY }}' > ./private-key.json
-          kubectl run dumper -v "./private.key.json:/usr/src/app/private-key.json" --image=$DUMPER_IMAGE_TAG
+          kubectl run dumper -v "./private-key.json:/usr/src/app/private-key.json" --image=$DUMPER_IMAGE_TAG
 
       # - name: 'Setup mongodb-tools'
       #   run: |
