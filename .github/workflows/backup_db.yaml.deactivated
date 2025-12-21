@@ -43,9 +43,6 @@ jobs:
       - name: Publish
         run: docker push $DUMPER_IMAGE_TAG
 
-      - name: Set up Kustomize
-        uses: imranismail/setup-kustomize@v2.1.0
-
       - name: Deploy dumper pod
         run: |
           echo '${{ secrets.GKE_SA_KEY }}' > ./private-key.json

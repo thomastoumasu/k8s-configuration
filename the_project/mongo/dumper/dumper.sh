@@ -5,13 +5,13 @@ URI=$1
 BUCKET=$2
 mongodump --uri=$URI --out /usr/src/app/dump/
 
-gcloud auth activate-service-account github-actions@dwk-gke-480809.iam.gserviceaccount.com --key-file=/usr/src/app/private-key.json --project=dwk-gke-480809
-
 NOW=$(date +'%Y-%m-%dT%H-%M-%S')
 FILENAME="/usr/src/app/dump/the_database/todos-${NOW}.bson"
 mv /usr/src/app/dump/the_database/todos.bson $FILENAME
 
+# should be authentified with service account, check dumper manifest and ex3_10.sh
 gcloud storage cp $FILENAME gs://${BUCKET}
+# gcloud auth activate-service-account github-actions@dwk-gke-480809.iam.gserviceaccount.com --key-file=/usr/src/app/private-key.json --project=dwk-gke-480809
 # echo "Not sending the dump actually anywhere"
 # curl -F ‘data=@/usr/src/app/dump/the_database/todos.bson’ https://somewhere
 

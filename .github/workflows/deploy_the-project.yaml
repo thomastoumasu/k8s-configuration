@@ -1,6 +1,7 @@
 name: Release application
-# first: create cluster as dwk-cluster, for example with sh create_gkecl_big_gat.sh
-# second: gateway IP must be known and built into ENV VITE_BACKEND_URL in frontend Dockerfile so that frontend can reach backend
+# need a service account .json file as GKE_SA_KEY (= put full file in repo environment secret): gcloud iam service-accounts keys create ./private-key.json --iam-account=github-actions@dwk-gke-331210.iam.gserviceaccount.com
+# then: create cluster as dwk-cluster, for example with sh create_gkecl_big_gat.sh
+# and: gateway IP must be known and built into ENV VITE_BACKEND_URL in frontend Dockerfile so that frontend can reach backend
 # here done with a domain name so only need to put the gateway IP in the cloudflare DNS record for the domains (see SITE below)
 
 on:
