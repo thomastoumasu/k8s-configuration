@@ -25,7 +25,7 @@ spec:
           resources:
             requests: # kube-scheduler uses this information to decide which node to place the Pod on and reserves at least this amount specifically for that container to use
                 memory: "64Mi" # in bytes, i for power of 2
-                cpu: "250m" # 1 CPU unit is equivalent to 1 physical CPU core, or 1 virtual core, depending on whether the node is a physical host or a virtual machine running inside a physical machine.
+                cpu: "100m" # 1 CPU unit is equivalent to 1 physical CPU core, or 1 virtual core, depending on whether the node is a physical host or a virtual machine running inside a physical machine.
             limits: # kubelet enforces the limit so that the running container is not allowed to use more of that resource:
               memory: "128Mi" # Above this, the kernel may terminate the container (OOMKilled, Out Of Memory) when it detects memory pressure. 
               cpu: "500m" # Around this, the kernel will restrict access to the CPU (CPU throttling).

@@ -1,0 +1,417 @@
+Name:               gke-dwk-cluster-default-pool-9f9f142b-7xgr
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/instance-type=e2-small
+                    beta.kubernetes.io/os=linux
+                    cloud.google.com/gke-boot-disk=pd-balanced
+                    cloud.google.com/gke-container-runtime=containerd
+                    cloud.google.com/gke-cpu-scaling-level=2
+                    cloud.google.com/gke-logging-variant=DEFAULT
+                    cloud.google.com/gke-max-pods-per-node=110
+                    cloud.google.com/gke-memory-gb-scaling-level=2
+                    cloud.google.com/gke-nodepool=default-pool
+                    cloud.google.com/gke-os-distribution=cos
+                    cloud.google.com/gke-provisioning=standard
+                    cloud.google.com/gke-stack-type=IPV4
+                    cloud.google.com/machine-family=e2
+                    cloud.google.com/private-node=false
+                    failure-domain.beta.kubernetes.io/region=europe-north1
+                    failure-domain.beta.kubernetes.io/zone=europe-north1-b
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=gke-dwk-cluster-default-pool-9f9f142b-7xgr
+                    kubernetes.io/os=linux
+                    node.kubernetes.io/instance-type=e2-small
+                    topology.gke.io/zone=europe-north1-b
+                    topology.kubernetes.io/region=europe-north1
+                    topology.kubernetes.io/zone=europe-north1-b
+Annotations:        container.googleapis.com/instance_id: 2419635228753852052
+                    csi.volume.kubernetes.io/nodeid:
+                      {"pd.csi.storage.gke.io":"projects/dwk-gke-480809/zones/europe-north1-b/instances/gke-dwk-cluster-default-pool-9f9f142b-7xgr"}
+                    node.alpha.kubernetes.io/ttl: 0
+                    node.gke.io/last-applied-node-labels:
+                      cloud.google.com/gke-boot-disk=pd-balanced,cloud.google.com/gke-container-runtime=containerd,cloud.google.com/gke-cpu-scaling-level=2,clou...
+                    node.gke.io/last-applied-node-taints: 
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 22 Dec 2025 14:34:58 +0100
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  gke-dwk-cluster-default-pool-9f9f142b-7xgr
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 22 Dec 2025 14:56:13 +0100
+Conditions:
+  Type                                              Status  LastHeartbeatTime                 LastTransitionTime                Reason                                                       Message
+  ----                                              ------  -----------------                 ------------------                ------                                                       -------
+  NetworkUnavailable                                False   Mon, 22 Dec 2025 14:35:00 +0100   Mon, 22 Dec 2025 14:35:00 +0100   RouteCreated                                                 NodeController create implicit route
+  FrequentKubeletRestart                            False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   NoFrequentKubeletRestart                                     kubelet is functioning properly
+  DeprecatedMirrorsFieldInContainerdConfiguration   False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   DeprecatedMirrorsFieldInContainerdConfigurationNotDetected   No deprecation risk: did not find any deprecated 'mirrors' field in containerd's config
+  CorruptDockerOverlay2                             False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   NoCorruptDockerOverlay2                                      docker overlay2 is functioning properly
+  CperHardwareErrorFatal                            False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   CperHardwareHasNoFatalError                                  UEFI CPER has no fatal error
+  DeprecatedConfigsFieldInContainerdConfiguration   False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   DeprecatedConfigsFieldInContainerdConfigurationNotDetected   No deprecation risk: did not find any deprecated 'configs' field in containerd's config
+  DeprecatedPullingSchemaV1Image                    False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   DeprecatedPullingSchemaV1ImageDetected                       No deprecation risk: did not pull any schema v1 images
+  FrequentUnregisterNetDevice                       False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   NoFrequentUnregisterNetDevice                                node is functioning properly
+  FrequentContainerdRestart                         False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   NoFrequentContainerdRestart                                  containerd is functioning properly
+  XfsShutdown                                       False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   XfsHasNotShutDown                                            XFS has not shutdown
+  Swap                                              False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   SwapNotDetected                                              Swap is not active
+  ReadOnlyRootFileSystem                            False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   ReadOnlyRootFileSystemNotDetected                            Root filesystem is not read only
+  DeprecatedAuthsFieldInContainerdConfiguration     False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   DeprecatedAuthsFieldInContainerdConfigurationNotDetected     No deprecation risk: did not find any deprecated 'auths' field in containerd's config
+  DeprecatedUsingV1Alpha2Cri                        False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   DeprecatedUsingV1Alpha2CriNotDetected                        No deprecation risk: did not use v1alpha2 CRI
+  FrequentDockerRestart                             False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   NoFrequentDockerRestart                                      docker is functioning properly
+  SysctlChanged                                     False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   SysctlNotChanged                                             Default sysctls are in effect, no unexpected sysctl changes
+  KernelDeadlock                                    False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   KernelHasNoDeadlock                                          kernel has no deadlock
+  DeprecatedOtherContainerdFeatures                 False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:49 +0100   DeprecatedOtherContainerdFeaturesNotDetected                 No deprecation risk: did not find any deprecations other than 3 configs fields (auths/configs/mirrors), pulling schema v1 images and using v1alpha2 CRI.
+  MemoryPressure                                    False   Mon, 22 Dec 2025 14:51:38 +0100   Mon, 22 Dec 2025 14:34:39 +0100   KubeletHasSufficientMemory                                   kubelet has sufficient memory available
+  DiskPressure                                      False   Mon, 22 Dec 2025 14:51:38 +0100   Mon, 22 Dec 2025 14:34:39 +0100   KubeletHasNoDiskPressure                                     kubelet has no disk pressure
+  PIDPressure                                       False   Mon, 22 Dec 2025 14:51:38 +0100   Mon, 22 Dec 2025 14:34:39 +0100   KubeletHasSufficientPID                                      kubelet has sufficient PID available
+  Ready                                             True    Mon, 22 Dec 2025 14:51:38 +0100   Mon, 22 Dec 2025 14:35:13 +0100   KubeletReady                                                 kubelet is posting ready status
+Addresses:
+  InternalIP:  10.166.0.30
+  ExternalIP:  35.228.130.87
+  Hostname:    gke-dwk-cluster-default-pool-9f9f142b-7xgr
+Capacity:
+  cpu:                2
+  ephemeral-storage:  28652804Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             2020476Ki
+  pods:               110
+Allocatable:
+  cpu:                940m
+  ephemeral-storage:  9226554939
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             1393788Ki
+  pods:               110
+System Info:
+  Machine ID:                 0d8abedfd9cd93d84dc561dc5cbd1fad
+  System UUID:                0d8abedf-d9cd-93d8-4dc5-61dc5cbd1fad
+  Boot ID:                    faeb8574-99db-4bc7-bf48-6b8fd6140030
+  Kernel Version:             6.6.105+
+  OS Image:                   Container-Optimized OS from Google
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.7.28
+  Kubelet Version:            v1.32.9-gke.1239000
+  Kube-Proxy Version:         v1.32.9-gke.1239000
+PodCIDR:                      10.8.1.0/24
+PodCIDRs:                     10.8.1.0/24
+ProviderID:                   gce://dwk-gke-480809/europe-north1-b/gke-dwk-cluster-default-pool-9f9f142b-7xgr
+Non-terminated Pods:          (10 in total)
+  Namespace                   Name                                                     CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                                     ------------  ----------  ---------------  -------------  ---
+  gmp-system                  collector-5n76s                                          5m (0%)       0 (0%)      36M (2%)         3032M (212%)   20m
+  gmp-system                  gmp-operator-799dfcc488-w4ftf                            1m (0%)       0 (0%)      16M (1%)         2G (140%)      20m
+  kube-system                 fluentbit-gke-mq2pg                                      105m (11%)    1 (106%)    230Mi (16%)      565Mi (41%)    21m
+  kube-system                 gke-metrics-agent-vkk5m                                  16m (1%)      1 (106%)    95Mi (6%)        130Mi (9%)     21m
+  kube-system                 konnectivity-agent-656759bf77-zfvhf                      15m (1%)      1 (106%)    60Mi (4%)        155Mi (11%)    21m
+  kube-system                 kube-dns-autoscaler-56cf69dcb4-7xjjw                     20m (2%)      0 (0%)      10Mi (0%)        0 (0%)         21m
+  kube-system                 kube-proxy-gke-dwk-cluster-default-pool-9f9f142b-7xgr    100m (10%)    0 (0%)      0 (0%)           0 (0%)         21m
+  kube-system                 metrics-server-v1.32.2-64744cf5cc-6twmh                  43m (4%)      43m (4%)    55Mi (4%)        55Mi (4%)      20m
+  kube-system                 pdcsi-node-6j9rr                                         10m (1%)      0 (0%)      20Mi (1%)        500Mi (36%)    20m
+  project                     backend-dep-7c69995bc5-4bx8v                             250m (26%)    500m (53%)  64Mi (4%)        128Mi (9%)     15m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests         Limits
+  --------           --------         ------
+  cpu                565m (60%)       3543m (376%)
+  memory             611939584 (42%)  6639467008 (465%)
+  ephemeral-storage  0 (0%)           0 (0%)
+  hugepages-1Gi      0 (0%)           0 (0%)
+  hugepages-2Mi      0 (0%)           0 (0%)
+Events:
+  Type     Reason                                  Age                From                               Message
+  ----     ------                                  ----               ----                               -------
+  Normal   Starting                                21m                kube-proxy                         
+  Normal   NodeAllocatableEnforced                 22m                kubelet                            Updated Node Allocatable limit across pods
+  Normal   Starting                                22m                kubelet                            Starting kubelet.
+  Warning  NodeRegistrationCheckerStart            22m                node-registration-checker-monitor  Mon Dec 22 13:33:16 UTC 2025 - ** Starting Node Registration Checker **
+  Warning  DockerStart                             22m (x2 over 22m)  systemd-monitor                    Starting docker.service...
+  Warning  ContainerdStart                         22m (x2 over 22m)  systemd-monitor                    Starting containerd.service...
+  Warning  KubeletStart                            22m                systemd-monitor                    Started kubelet.service.
+  Warning  ReadOnlyFileSystemDetected              22m                device-fs-monitor                  
+  Normal   NodeHasSufficientPID                    22m (x7 over 22m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-7xgr status is now: NodeHasSufficientPID
+  Normal   NodeHasNoDiskPressure                   22m (x8 over 22m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-7xgr status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientMemory                 22m (x8 over 22m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-7xgr status is now: NodeHasSufficientMemory
+  Normal   Synced                                  21m                cloud-node-controller              Node synced successfully
+  Normal   RegisteredNode                          21m                node-controller                    Node gke-dwk-cluster-default-pool-9f9f142b-7xgr event: Registered Node gke-dwk-cluster-default-pool-9f9f142b-7xgr in Controller
+  Warning  NodeRegistrationCheckerDidNotRunChecks  15m                node-registration-checker-monitor  Mon Dec 22 13:40:18 UTC 2025 - **     Node ready and registered. **
+
+
+Name:               gke-dwk-cluster-default-pool-9f9f142b-xtg7
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/instance-type=e2-small
+                    beta.kubernetes.io/os=linux
+                    cloud.google.com/gke-boot-disk=pd-balanced
+                    cloud.google.com/gke-container-runtime=containerd
+                    cloud.google.com/gke-cpu-scaling-level=2
+                    cloud.google.com/gke-logging-variant=DEFAULT
+                    cloud.google.com/gke-max-pods-per-node=110
+                    cloud.google.com/gke-memory-gb-scaling-level=2
+                    cloud.google.com/gke-nodepool=default-pool
+                    cloud.google.com/gke-os-distribution=cos
+                    cloud.google.com/gke-provisioning=standard
+                    cloud.google.com/gke-stack-type=IPV4
+                    cloud.google.com/machine-family=e2
+                    cloud.google.com/private-node=false
+                    failure-domain.beta.kubernetes.io/region=europe-north1
+                    failure-domain.beta.kubernetes.io/zone=europe-north1-b
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=gke-dwk-cluster-default-pool-9f9f142b-xtg7
+                    kubernetes.io/os=linux
+                    node.kubernetes.io/instance-type=e2-small
+                    topology.gke.io/zone=europe-north1-b
+                    topology.kubernetes.io/region=europe-north1
+                    topology.kubernetes.io/zone=europe-north1-b
+Annotations:        container.googleapis.com/instance_id: 2454302272031880852
+                    csi.volume.kubernetes.io/nodeid:
+                      {"pd.csi.storage.gke.io":"projects/dwk-gke-480809/zones/europe-north1-b/instances/gke-dwk-cluster-default-pool-9f9f142b-xtg7"}
+                    node.alpha.kubernetes.io/ttl: 0
+                    node.gke.io/last-applied-node-labels:
+                      cloud.google.com/gke-boot-disk=pd-balanced,cloud.google.com/gke-container-runtime=containerd,cloud.google.com/gke-cpu-scaling-level=2,clou...
+                    node.gke.io/last-applied-node-taints: 
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 22 Dec 2025 14:34:58 +0100
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  gke-dwk-cluster-default-pool-9f9f142b-xtg7
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 22 Dec 2025 14:56:12 +0100
+Conditions:
+  Type                                              Status  LastHeartbeatTime                 LastTransitionTime                Reason                                                       Message
+  ----                                              ------  -----------------                 ------------------                ------                                                       -------
+  NetworkUnavailable                                False   Mon, 22 Dec 2025 14:35:00 +0100   Mon, 22 Dec 2025 14:35:00 +0100   RouteCreated                                                 NodeController create implicit route
+  DeprecatedAuthsFieldInContainerdConfiguration     False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   DeprecatedAuthsFieldInContainerdConfigurationNotDetected     No deprecation risk: did not find any deprecated 'auths' field in containerd's config
+  DeprecatedUsingV1Alpha2Cri                        False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   DeprecatedUsingV1Alpha2CriNotDetected                        No deprecation risk: did not use v1alpha2 CRI
+  DeprecatedPullingSchemaV1Image                    False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   DeprecatedPullingSchemaV1ImageDetected                       No deprecation risk: did not pull any schema v1 images
+  DeprecatedOtherContainerdFeatures                 False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   DeprecatedOtherContainerdFeaturesNotDetected                 No deprecation risk: did not find any deprecations other than 3 configs fields (auths/configs/mirrors), pulling schema v1 images and using v1alpha2 CRI.
+  DeprecatedConfigsFieldInContainerdConfiguration   False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   DeprecatedConfigsFieldInContainerdConfigurationNotDetected   No deprecation risk: did not find any deprecated 'configs' field in containerd's config
+  KernelDeadlock                                    False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   KernelHasNoDeadlock                                          kernel has no deadlock
+  SysctlChanged                                     False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   SysctlNotChanged                                             Default sysctls are in effect, no unexpected sysctl changes
+  XfsShutdown                                       False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   XfsHasNotShutDown                                            XFS has not shutdown
+  CorruptDockerOverlay2                             False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   NoCorruptDockerOverlay2                                      docker overlay2 is functioning properly
+  CperHardwareErrorFatal                            False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   CperHardwareHasNoFatalError                                  UEFI CPER has no fatal error
+  FrequentKubeletRestart                            False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   NoFrequentKubeletRestart                                     kubelet is functioning properly
+  Swap                                              False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   SwapNotDetected                                              Swap is not active
+  ReadOnlyRootFileSystem                            False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   ReadOnlyRootFileSystemNotDetected                            Root filesystem is not read only
+  FrequentUnregisterNetDevice                       False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   NoFrequentUnregisterNetDevice                                node is functioning properly
+  DeprecatedMirrorsFieldInContainerdConfiguration   False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   DeprecatedMirrorsFieldInContainerdConfigurationNotDetected   No deprecation risk: did not find any deprecated 'mirrors' field in containerd's config
+  FrequentDockerRestart                             False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   NoFrequentDockerRestart                                      docker is functioning properly
+  FrequentContainerdRestart                         False   Mon, 22 Dec 2025 14:53:50 +0100   Mon, 22 Dec 2025 14:33:47 +0100   NoFrequentContainerdRestart                                  containerd is functioning properly
+  MemoryPressure                                    False   Mon, 22 Dec 2025 14:52:09 +0100   Mon, 22 Dec 2025 14:34:38 +0100   KubeletHasSufficientMemory                                   kubelet has sufficient memory available
+  DiskPressure                                      False   Mon, 22 Dec 2025 14:52:09 +0100   Mon, 22 Dec 2025 14:34:38 +0100   KubeletHasNoDiskPressure                                     kubelet has no disk pressure
+  PIDPressure                                       False   Mon, 22 Dec 2025 14:52:09 +0100   Mon, 22 Dec 2025 14:34:38 +0100   KubeletHasSufficientPID                                      kubelet has sufficient PID available
+  Ready                                             True    Mon, 22 Dec 2025 14:52:09 +0100   Mon, 22 Dec 2025 14:34:59 +0100   KubeletReady                                                 kubelet is posting ready status
+Addresses:
+  InternalIP:  10.166.0.29
+  ExternalIP:  35.228.203.243
+  Hostname:    gke-dwk-cluster-default-pool-9f9f142b-xtg7
+Capacity:
+  cpu:                2
+  ephemeral-storage:  28652804Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             2020476Ki
+  pods:               110
+Allocatable:
+  cpu:                940m
+  ephemeral-storage:  9226554939
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             1393788Ki
+  pods:               110
+System Info:
+  Machine ID:                 e2f1f4f3e5412a6980e0adf5aa07bffe
+  System UUID:                e2f1f4f3-e541-2a69-80e0-adf5aa07bffe
+  Boot ID:                    6ed24113-46c8-46e9-a1d8-92eef633db2a
+  Kernel Version:             6.6.105+
+  OS Image:                   Container-Optimized OS from Google
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.7.28
+  Kubelet Version:            v1.32.9-gke.1239000
+  Kube-Proxy Version:         v1.32.9-gke.1239000
+PodCIDR:                      10.8.0.0/24
+PodCIDRs:                     10.8.0.0/24
+ProviderID:                   gce://dwk-gke-480809/europe-north1-b/gke-dwk-cluster-default-pool-9f9f142b-xtg7
+Non-terminated Pods:          (11 in total)
+  Namespace                   Name                                                     CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                                     ------------  ----------  ---------------  -------------  ---
+  gke-managed-cim             kube-state-metrics-0                                     105m (11%)    1 (106%)    130Mi (9%)       530Mi (38%)    21m
+  gmp-system                  collector-fpvqn                                          5m (0%)       0 (0%)      36M (2%)         3032M (212%)   20m
+  kube-system                 event-exporter-gke-7b86dd66bc-g6sbf                      3m (0%)       0 (0%)      100Mi (7%)       0 (0%)         21m
+  kube-system                 fluentbit-gke-kwnpg                                      105m (11%)    1 (106%)    230Mi (16%)      565Mi (41%)    21m
+  kube-system                 gke-metrics-agent-sszgh                                  16m (1%)      1 (106%)    95Mi (6%)        130Mi (9%)     21m
+  kube-system                 konnectivity-agent-656759bf77-z4dhs                      15m (1%)      1 (106%)    60Mi (4%)        155Mi (11%)    21m
+  kube-system                 konnectivity-agent-autoscaler-6bdd98dcf7-wgv6s           10m (1%)      0 (0%)      10M (0%)         0 (0%)         21m
+  kube-system                 kube-dns-b48d99776-v8n4t                                 270m (28%)    1 (106%)    155Mi (11%)      255Mi (18%)    21m
+  kube-system                 kube-proxy-gke-dwk-cluster-default-pool-9f9f142b-xtg7    100m (10%)    0 (0%)      0 (0%)           0 (0%)         21m
+  kube-system                 pdcsi-node-99n2b                                         10m (1%)      0 (0%)      20Mi (1%)        500Mi (36%)    20m
+  project                     mongo-ss-0                                               250m (26%)    250m (26%)  512M (35%)       512M (35%)     15m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests          Limits
+  --------           --------          ------
+  cpu                889m (94%)        5250m (558%)
+  memory             1386375040 (97%)  5782709760 (405%)
+  ephemeral-storage  0 (0%)            0 (0%)
+  hugepages-1Gi      0 (0%)            0 (0%)
+  hugepages-2Mi      0 (0%)            0 (0%)
+Events:
+  Type     Reason                                  Age                From                               Message
+  ----     ------                                  ----               ----                               -------
+  Normal   Starting                                21m                kube-proxy                         
+  Normal   NodeAllocatableEnforced                 23m                kubelet                            Updated Node Allocatable limit across pods
+  Normal   Starting                                23m                kubelet                            Starting kubelet.
+  Warning  InvalidDiskCapacity                     23m                kubelet                            invalid capacity 0 on image filesystem
+  Warning  NodeRegistrationCheckerStart            22m                node-registration-checker-monitor  Mon Dec 22 13:33:15 UTC 2025 - ** Starting Node Registration Checker **
+  Warning  ContainerdStart                         22m (x2 over 22m)  systemd-monitor                    Starting containerd.service...
+  Warning  DockerStart                             22m (x2 over 22m)  systemd-monitor                    Starting docker.service...
+  Warning  KubeletStart                            22m                systemd-monitor                    Started kubelet.service.
+  Normal   NodeHasSufficientPID                    22m (x7 over 23m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-xtg7 status is now: NodeHasSufficientPID
+  Normal   NodeHasNoDiskPressure                   22m (x8 over 23m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-xtg7 status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientMemory                 22m (x8 over 23m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-xtg7 status is now: NodeHasSufficientMemory
+  Normal   Synced                                  21m                cloud-node-controller              Node synced successfully
+  Normal   RegisteredNode                          21m                node-controller                    Node gke-dwk-cluster-default-pool-9f9f142b-xtg7 event: Registered Node gke-dwk-cluster-default-pool-9f9f142b-xtg7 in Controller
+  Warning  NodeRegistrationCheckerDidNotRunChecks  16m                node-registration-checker-monitor  Mon Dec 22 13:40:16 UTC 2025 - **     Node ready and registered. **
+  Warning  ReadOnlyFileSystemDetected              12m (x2 over 22m)  device-fs-monitor                  
+
+
+Name:               gke-dwk-cluster-default-pool-9f9f142b-zdz7
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/instance-type=e2-small
+                    beta.kubernetes.io/os=linux
+                    cloud.google.com/gke-boot-disk=pd-balanced
+                    cloud.google.com/gke-container-runtime=containerd
+                    cloud.google.com/gke-cpu-scaling-level=2
+                    cloud.google.com/gke-logging-variant=DEFAULT
+                    cloud.google.com/gke-max-pods-per-node=110
+                    cloud.google.com/gke-memory-gb-scaling-level=2
+                    cloud.google.com/gke-nodepool=default-pool
+                    cloud.google.com/gke-os-distribution=cos
+                    cloud.google.com/gke-provisioning=standard
+                    cloud.google.com/gke-stack-type=IPV4
+                    cloud.google.com/machine-family=e2
+                    cloud.google.com/private-node=false
+                    failure-domain.beta.kubernetes.io/region=europe-north1
+                    failure-domain.beta.kubernetes.io/zone=europe-north1-b
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=gke-dwk-cluster-default-pool-9f9f142b-zdz7
+                    kubernetes.io/os=linux
+                    node.kubernetes.io/instance-type=e2-small
+                    topology.gke.io/zone=europe-north1-b
+                    topology.kubernetes.io/region=europe-north1
+                    topology.kubernetes.io/zone=europe-north1-b
+Annotations:        container.googleapis.com/instance_id: 1744197711028352660
+                    csi.volume.kubernetes.io/nodeid:
+                      {"pd.csi.storage.gke.io":"projects/dwk-gke-480809/zones/europe-north1-b/instances/gke-dwk-cluster-default-pool-9f9f142b-zdz7"}
+                    node.alpha.kubernetes.io/ttl: 0
+                    node.gke.io/last-applied-node-labels:
+                      cloud.google.com/gke-boot-disk=pd-balanced,cloud.google.com/gke-container-runtime=containerd,cloud.google.com/gke-cpu-scaling-level=2,clou...
+                    node.gke.io/last-applied-node-taints: 
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 22 Dec 2025 14:34:58 +0100
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  gke-dwk-cluster-default-pool-9f9f142b-zdz7
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 22 Dec 2025 14:56:11 +0100
+Conditions:
+  Type                                              Status  LastHeartbeatTime                 LastTransitionTime                Reason                                                       Message
+  ----                                              ------  -----------------                 ------------------                ------                                                       -------
+  NetworkUnavailable                                False   Mon, 22 Dec 2025 14:35:00 +0100   Mon, 22 Dec 2025 14:35:00 +0100   RouteCreated                                                 NodeController create implicit route
+  CperHardwareErrorFatal                            False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   CperHardwareHasNoFatalError                                  UEFI CPER has no fatal error
+  FrequentKubeletRestart                            False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   NoFrequentKubeletRestart                                     kubelet is functioning properly
+  DeprecatedPullingSchemaV1Image                    False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   DeprecatedPullingSchemaV1ImageDetected                       No deprecation risk: did not pull any schema v1 images
+  KernelDeadlock                                    False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   KernelHasNoDeadlock                                          kernel has no deadlock
+  FrequentContainerdRestart                         False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   NoFrequentContainerdRestart                                  containerd is functioning properly
+  DeprecatedConfigsFieldInContainerdConfiguration   False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   DeprecatedConfigsFieldInContainerdConfigurationNotDetected   No deprecation risk: did not find any deprecated 'configs' field in containerd's config
+  XfsShutdown                                       False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   XfsHasNotShutDown                                            XFS has not shutdown
+  Swap                                              False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   SwapNotDetected                                              Swap is not active
+  DeprecatedMirrorsFieldInContainerdConfiguration   False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   DeprecatedMirrorsFieldInContainerdConfigurationNotDetected   No deprecation risk: did not find any deprecated 'mirrors' field in containerd's config
+  FrequentDockerRestart                             False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   NoFrequentDockerRestart                                      docker is functioning properly
+  ReadOnlyRootFileSystem                            False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   ReadOnlyRootFileSystemNotDetected                            Root filesystem is not read only
+  FrequentUnregisterNetDevice                       False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   NoFrequentUnregisterNetDevice                                node is functioning properly
+  DeprecatedOtherContainerdFeatures                 False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   DeprecatedOtherContainerdFeaturesNotDetected                 No deprecation risk: did not find any deprecations other than 3 configs fields (auths/configs/mirrors), pulling schema v1 images and using v1alpha2 CRI.
+  DeprecatedUsingV1Alpha2Cri                        False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   DeprecatedUsingV1Alpha2CriNotDetected                        No deprecation risk: did not use v1alpha2 CRI
+  DeprecatedAuthsFieldInContainerdConfiguration     False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   DeprecatedAuthsFieldInContainerdConfigurationNotDetected     No deprecation risk: did not find any deprecated 'auths' field in containerd's config
+  CorruptDockerOverlay2                             False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   NoCorruptDockerOverlay2                                      docker overlay2 is functioning properly
+  SysctlChanged                                     False   Mon, 22 Dec 2025 14:54:36 +0100   Mon, 22 Dec 2025 14:33:51 +0100   SysctlNotChanged                                             Default sysctls are in effect, no unexpected sysctl changes
+  MemoryPressure                                    False   Mon, 22 Dec 2025 14:51:40 +0100   Mon, 22 Dec 2025 14:34:34 +0100   KubeletHasSufficientMemory                                   kubelet has sufficient memory available
+  DiskPressure                                      False   Mon, 22 Dec 2025 14:51:40 +0100   Mon, 22 Dec 2025 14:34:34 +0100   KubeletHasNoDiskPressure                                     kubelet has no disk pressure
+  PIDPressure                                       False   Mon, 22 Dec 2025 14:51:40 +0100   Mon, 22 Dec 2025 14:34:34 +0100   KubeletHasSufficientPID                                      kubelet has sufficient PID available
+  Ready                                             True    Mon, 22 Dec 2025 14:51:40 +0100   Mon, 22 Dec 2025 14:35:15 +0100   KubeletReady                                                 kubelet is posting ready status
+Addresses:
+  InternalIP:  10.166.0.31
+  ExternalIP:  34.88.184.217
+  Hostname:    gke-dwk-cluster-default-pool-9f9f142b-zdz7
+Capacity:
+  cpu:                2
+  ephemeral-storage:  28652804Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             2020476Ki
+  pods:               110
+Allocatable:
+  cpu:                940m
+  ephemeral-storage:  9226554939
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             1393788Ki
+  pods:               110
+System Info:
+  Machine ID:                 aa0acc405575fbc9b779032fb518f360
+  System UUID:                aa0acc40-5575-fbc9-b779-032fb518f360
+  Boot ID:                    1ba000cc-cb22-4f40-a583-b5d5998de05b
+  Kernel Version:             6.6.105+
+  OS Image:                   Container-Optimized OS from Google
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  containerd://1.7.28
+  Kubelet Version:            v1.32.9-gke.1239000
+  Kube-Proxy Version:         v1.32.9-gke.1239000
+PodCIDR:                      10.8.2.0/24
+PodCIDRs:                     10.8.2.0/24
+ProviderID:                   gce://dwk-gke-480809/europe-north1-b/gke-dwk-cluster-default-pool-9f9f142b-zdz7
+Non-terminated Pods:          (10 in total)
+  Namespace                   Name                                                     CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                                     ------------  ----------  ---------------  -------------  ---
+  gmp-system                  collector-jrgtn                                          5m (0%)       0 (0%)      36M (2%)         3032M (212%)   20m
+  kube-system                 fluentbit-gke-mmpd8                                      105m (11%)    1 (106%)    230Mi (16%)      565Mi (41%)    21m
+  kube-system                 gke-metrics-agent-mrdff                                  16m (1%)      1 (106%)    95Mi (6%)        130Mi (9%)     21m
+  kube-system                 konnectivity-agent-656759bf77-lkm96                      15m (1%)      1 (106%)    60Mi (4%)        155Mi (11%)    21m
+  kube-system                 kube-dns-b48d99776-q9s56                                 270m (28%)    1 (106%)    155Mi (11%)      255Mi (18%)    20m
+  kube-system                 kube-proxy-gke-dwk-cluster-default-pool-9f9f142b-zdz7    100m (10%)    0 (0%)      0 (0%)           0 (0%)         21m
+  kube-system                 l7-default-backend-859d67fdb5-6t5lf                      10m (1%)      0 (0%)      20Mi (1%)        0 (0%)         21m
+  kube-system                 pdcsi-node-z5jpq                                         10m (1%)      0 (0%)      20Mi (1%)        500Mi (36%)    20m
+  project                     frontend-dep-546bbfc758-zlt9v                            250m (26%)    500m (53%)  64Mi (4%)        128Mi (9%)     15m
+  project                     image-finder-dep-6494c756db-k6bt7                        100m (10%)    500m (53%)  64Mi (4%)        128Mi (9%)     15m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests         Limits
+  --------           --------         ------
+  cpu                881m (93%)       5 (531%)
+  memory             778391808 (54%)  4983399936 (349%)
+  ephemeral-storage  0 (0%)           0 (0%)
+  hugepages-1Gi      0 (0%)           0 (0%)
+  hugepages-2Mi      0 (0%)           0 (0%)
+Events:
+  Type     Reason                                  Age                From                               Message
+  ----     ------                                  ----               ----                               -------
+  Normal   Starting                                21m                kube-proxy                         
+  Normal   Starting                                22m                kubelet                            Starting kubelet.
+  Normal   NodeAllocatableEnforced                 22m                kubelet                            Updated Node Allocatable limit across pods
+  Warning  NodeRegistrationCheckerStart            22m                node-registration-checker-monitor  Mon Dec 22 13:33:19 UTC 2025 - ** Starting Node Registration Checker **
+  Warning  DockerStart                             22m (x2 over 22m)  systemd-monitor                    Starting docker.service...
+  Warning  ContainerdStart                         22m (x2 over 22m)  systemd-monitor                    Starting containerd.service...
+  Warning  KubeletStart                            22m                systemd-monitor                    Started kubelet.service.
+  Normal   NodeHasSufficientPID                    22m (x7 over 22m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-zdz7 status is now: NodeHasSufficientPID
+  Normal   NodeHasNoDiskPressure                   22m (x8 over 22m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-zdz7 status is now: NodeHasNoDiskPressure
+  Normal   NodeHasSufficientMemory                 22m (x8 over 22m)  kubelet                            Node gke-dwk-cluster-default-pool-9f9f142b-zdz7 status is now: NodeHasSufficientMemory
+  Normal   Synced                                  21m                cloud-node-controller              Node synced successfully
+  Normal   RegisteredNode                          21m                node-controller                    Node gke-dwk-cluster-default-pool-9f9f142b-zdz7 event: Registered Node gke-dwk-cluster-default-pool-9f9f142b-zdz7 in Controller
+  Warning  NodeRegistrationCheckerDidNotRunChecks  15m                node-registration-checker-monitor  Mon Dec 22 13:40:20 UTC 2025 - **     Node ready and registered. **
+  Warning  ReadOnlyFileSystemDetected              12m (x2 over 22m)  device-fs-monitor                  
