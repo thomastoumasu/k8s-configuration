@@ -8,5 +8,9 @@ RUN apt-get update && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && \
     apt-get update -y && \
     apt-get install google-cloud-sdk -y
+# define env here instead of manifest 
+# # ENV MONGO_URI="mongodb://the_username:the_password@mongo-svc.project:27017/the_database"
+# # ENV BUCKET="thomastoumasu_k8s-bucket"
 ENTRYPOINT ["./dumper.sh"]
-CMD ["mongodb://the_username:the_password@mongo-svc.project:27017/the_database", "thomastoumasu_k8s-bucket"]
+# # pass as argument instead of env
+# CMD ["mongodb://the_username:the_password@mongo-svc.project:27017/the_database", "thomastoumasu_k8s-bucket"]

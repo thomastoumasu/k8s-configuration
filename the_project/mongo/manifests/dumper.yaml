@@ -14,21 +14,51 @@
 #       name: mongo-debug
 #   restartPolicy: Always
 
-apiVersion: v1
-kind: Pod
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: dumper
+#   namespace: project
+# spec:
+#   serviceAccountName: gcs-api-service-account
+#   # serviceAccountName: gcs-api-sa
+#   nodeSelector:
+#     iam.gke.io/gke-metadata-server-enabled: 'true'
+#   containers:
+#     - name: dumper
+#       image: thomastoumasu/k8s-mongo-dumper:3.10-amd
+#       env:
+#         - name: MONGO_URI
+#           value: 'mongodb://the_username:the_password@mongo-svc.project:27017/the_database'
+#         - name: BUCKET
+#           value: 'thomastoumasu_k8s-bucket'
+#       # command:
+#       #   - sleep
+#       #   - '3600'
+#       imagePullPolicy: IfNotPresent
+#   restartPolicy: Always
+
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: dumper
+  name: periodic-dumper
   namespace: project
 spec:
-  # serviceAccountName: gcs-api-service-account
-  serviceAccountName: gcs-api-sa
-  nodeSelector:
-    iam.gke.io/gke-metadata-server-enabled: 'true'
-  containers:
-    - name: dumper
-      image: thomastoumasu/k8s-mongo-dumper:3.10a-amd
-      # command:
-      #   - sleep
-      #   - '3600'
-      imagePullPolicy: IfNotPresent
-  restartPolicy: Always
+  schedule: '50 * * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: gcs-api-service-account
+          nodeSelector:
+            iam.gke.io/gke-metadata-server-enabled: 'true'
+          containers:
+            - name: dumper
+              image: thomastoumasu/k8s-mongo-dumper:3.10-amd
+              env:
+                - name: MONGO_URI
+                  value: 'mongodb://the_username:the_password@mongo-svc.project:27017/the_database'
+                - name: BUCKET
+                  value: 'thomastoumasu_k8s-bucket'
+              imagePullPolicy: IfNotPresent
+          restartPolicy: Always
