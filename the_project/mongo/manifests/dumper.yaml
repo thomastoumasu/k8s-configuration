@@ -20,13 +20,15 @@ metadata:
   name: dumper
   namespace: project
 spec:
+  # serviceAccountName: gcs-api-service-account
   serviceAccountName: gcs-api-sa
+  nodeSelector:
+    iam.gke.io/gke-metadata-server-enabled: 'true'
   containers:
-    # - image: thomastoumasu/k8s-mongo-dumper:latest
-      - image: thomastoumasu/k8s-mongo-dumper:3.10-amd
+    - name: dumper
+      image: thomastoumasu/k8s-mongo-dumper:3.10a-amd
       # command:
       #   - sleep
       #   - '3600'
-      imagePullPolicy: Always
-      name: dumper
+      imagePullPolicy: IfNotPresent
   restartPolicy: Always

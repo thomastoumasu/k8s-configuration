@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+sleep 3600
+
 URI=$1
 BUCKET=$2
 mongodump --uri=$URI --out /usr/src/app/dump/
@@ -8,6 +10,8 @@ mongodump --uri=$URI --out /usr/src/app/dump/
 NOW=$(date +'%Y-%m-%dT%H-%M-%S')
 FILENAME="/usr/src/app/dump/the_database/todos-${NOW}.bson"
 mv /usr/src/app/dump/the_database/todos.bson $FILENAME
+
+curl -X GET -H "Authorization: Bearer $(gcloud auth print-access-token)" "https://storage.googleapis.com/storage/v1/b/thomastoumasu_k8s-bucket/o"
 
 # should be authentified with service account, check dumper manifest and ex3_10.sh
 gcloud storage cp $FILENAME gs://${BUCKET}
