@@ -1,0 +1,23 @@
+# Health check configuration for the load balancer. For more information
+# about these fields, see https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: lb-healthcheck-log-output
+  namespace: exercises
+spec:
+  default:
+    checkIntervalSec: 30 # The default value is 15 seconds.
+    timeoutSec: 2
+    logConfig:
+      enabled: true
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 3000
+        requestPath: /health
+  # Attach to a Service in the cluster.
+  targetRef:
+    group: ''
+    kind: Service
+    name: log-output-svc

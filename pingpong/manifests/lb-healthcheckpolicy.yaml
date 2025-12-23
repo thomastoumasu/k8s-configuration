@@ -1,0 +1,23 @@
+# Health check configuration for the load balancer. This avoids automatic checks on /.
+# see https://cloud.google.com/compute/docs/reference/rest/v1/healthChecks.
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: lb-healthcheck-pingpong
+  namespace: exercises
+spec:
+  default:
+    checkIntervalSec: 15 # The default value is 15 seconds.
+    timeoutSec: 2
+    logConfig:
+      enabled: true
+    config:
+      type: HTTP
+      httpHealthCheck:
+        port: 3002
+        requestPath: /health
+  # Attach to a Service in the cluster.
+  targetRef:
+    group: ''
+    kind: Service
+    name: pingpong-svc

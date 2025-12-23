@@ -15,9 +15,23 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: thomastoumasu/k8s-pingpong:3.4-amd
+          image: thomastoumasu/k8s-pingpong:4.1d-amd
           env:
             - name: PORT
               value: '3002'
             - name: DATABASE_URL
               value: 'postgres://postgres:mysecretpassword@postgres-svc.exercises:5432/postgres'
+          readinessProbe:
+            timeoutSeconds: 5
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 10 # How often to test
+            httpGet:
+              path: /health
+              port: 3002
+          livenessProbe:
+            timeoutSeconds: 5
+            initialDelaySeconds: 20 # Initial delay until the liveness is tested
+            periodSeconds: 10 # How often to test
+            httpGet:
+              path: /health
+              port: 3002

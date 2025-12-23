@@ -24,13 +24,4 @@ Counter.init(
   }
 );
 
-try {
-  await sequelize.authenticate();
-  console.log('Connection to postgres has been established successfully.');
-  // sequelize.close();
-} catch (error) {
-  console.error('Unable to connect to the postgres database:', error);
-  process.exit();
-}
-
-export { Counter };
+export { sequelize, Counter };

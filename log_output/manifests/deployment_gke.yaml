@@ -4,7 +4,7 @@ metadata:
   name: log-output-dep
   namespace: exercises
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: log-output
@@ -22,7 +22,7 @@ spec:
                 path: 'information.txt'
       containers:
         - name: log-output
-          image: thomastoumasu/k8s-log-output:3.4-amd
+          image: thomastoumasu/k8s-log-output:4.1b-amd
           env:
             - name: MESSAGE
               valueFrom:
@@ -33,3 +33,15 @@ spec:
             - name: config
               mountPath: '/config'
               readOnly: true
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /health
+              port: 3000
+          livenessProbe:
+            initialDelaySeconds: 20 # Initial delay until the liveness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /health
+              port: 3000

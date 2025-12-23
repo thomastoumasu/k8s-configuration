@@ -3,6 +3,10 @@ import axios from 'axios';
 import path from 'path';
 import fs from 'fs';
 import { PINGPONG_URL, PORT, MESSAGE } from './utils/config.js';
+import Router from '@koa/router';
+const router = new Router();
+
+let isReady = false;
 
 const app = new Koa();
 const randomString = Math.random().toString(36);
@@ -20,7 +24,7 @@ const getFile = async () =>
     });
   });
 
-app.use(async ctx => {
+router.get('/', async ctx => {
   if (ctx.path.includes('favicon.ico')) return;
   let counter = 0;
   try {
@@ -37,6 +41,14 @@ app.use(async ctx => {
   ctx.status = 200;
 });
 
+router.get('/health', ctx => {
+  ctx.status = isReady ? 200 : 500;
+  console.log(`Received a request to health and responding with status ${ctx.status}`);
+});
+
+app.use(router.routes());
+
 app.listen(PORT, () => {
   console.log(`Log-output app: server started in port ${PORT}`);
+  isReady = true;
 });
