@@ -33,7 +33,7 @@ server.get('/health', async (req, res) => {
       })
       .catch(err => {
         error('--backend unable to connect to MongoDB. Error:\n', err.message);
-        return res.sendStatus(200);
+        return res.sendStatus(500);
       });
   }
 });

@@ -36,4 +36,4 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [3.9](https://github.com/thomastoumasu/k8s-submission/tree/3.9)
 - [3.10](https://github.com/thomastoumasu/k8s-submission/tree/3.10) Use Workload Identity to run gcloud commands from a pod inside the cluster (db backup)
 - [4.1](https://github.com/thomastoumasu/k8s-submission/tree/4.1)
-- [4.2](https://github.com/thomastoumasu/k8s-submission/tree/4.2) Template: Readiness/Liveness probe and load balancer health check
+- [4.2](https://github.com/thomastoumasu/k8s-submission/tree/4.2) Template: Readiness/Liveness probes and load balancer health checks
