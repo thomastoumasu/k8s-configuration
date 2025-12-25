@@ -20,7 +20,8 @@ kubectl cluster-info
 kubectl create namespace project
 
 # set kube-config to point at the cluster
-gcloud container clusters get-credentials $CLUSTER_NAME --location=$CONTROL_PLANE_LOCATION # or --zone=$LOCATION
+gcloud container clusters get-credentials $CLUSTER_NAME --location=$CONTROL_PLANE_LOCATION 
+# or --zone=$LOCATION
 
 # push on main to deploy project on namespace project (see .github/workflows/deploy_the-project.yaml)
 
