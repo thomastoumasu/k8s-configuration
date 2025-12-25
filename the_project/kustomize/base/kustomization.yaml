@@ -5,6 +5,7 @@ resources:
   - ../../mongo/manifests/statefulset_gke.yaml
   - ../../backend/manifests/deployment_gke_gat.yaml
   - ../../backend/manifests/route_gke.yaml
+  - ../../backend/manifests/lb-healthcheckpolicy.yaml
   - ../../manifests/persistentvolumeclaim_gke.yaml
   - ../../image-finder/manifests/deployment_gke.yaml
   - ../../frontend/manifests/deployment_gke_gat.yaml

@@ -29,6 +29,18 @@ spec:
             limits: # kubelet enforces the limit so that the running container is not allowed to use more of that resource:
               memory: "128Mi" # Above this, the kernel may terminate the container (OOMKilled, Out Of Memory) when it detects memory pressure. 
               cpu: "500m" # Around this, the kernel will restrict access to the CPU (CPU throttling).
+          readinessProbe:
+            initialDelaySeconds: 20 # Initial delay until the readiness is tested
+            periodSeconds: 30 # How often to test
+            httpGet:
+              path: /health
+              port: 5000
+          livenessProbe:
+            initialDelaySeconds: 60 # Initial delay until the liveness is tested
+            periodSeconds: 15 # How often to test
+            httpGet:
+              path: /health
+              port: 5000
 ---
 apiVersion: v1
 kind: Service
