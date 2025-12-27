@@ -1,7 +1,11 @@
-const NATS = require('nats');
+import axios from 'axios';
+import NATS from 'nats';
+
 const nc = NATS.connect({
   url: process.env.NATS_URL || 'nats://nats:4222',
 });
+
+const webhook = 'https://study.cs.helsinki.fi/discord/webhooks/1264842173619109949';
 
 let preoccupied = false;
 
@@ -17,17 +21,18 @@ const setReadyToBroadcast = () => {
 
 const broadcastTodo = async ({ text }) => {
   console.log('Processing...');
-  // await simpleWait(Math.random() * 10000)  // Some serious data processing happens here
-  // const fullnames = data.map(person => ({ id: person.uuid, name: `${person.fn} ${person.ln}` }))
-  // const payload = {
-  //   index: index,
-  //   data: fullnames
-  // }
-  // sendProcessedData(payload)
-};
-
-const sendProcessedData = payload => {
-  nc.publish('saver_data', JSON.stringify(payload));
+  const payload = {
+    content: 'A new Todo was created',
+    username: 'thomastoumasu',
+    avatar_url: 'https://gravatar.com/avatar/42dd784b61ac3992e45bdf1d1454ec05?s=200&d=robohash&r=r',
+    embeds: [
+      {
+        description: text,
+        color: 65280,
+      },
+    ],
+  };
+  axios.post(webhook, payload);
   console.log('Data was sent');
   setReadyToBroadcast();
 };

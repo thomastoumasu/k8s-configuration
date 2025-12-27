@@ -1,0 +1,15 @@
+### careful with POST, do not add an empty line before the headers
+POST https://study.cs.helsinki.fi/discord/webhooks/1264842173619109949
+Content-Type: application/json
+
+{
+  "content": "A new Todo was created",
+  "username": "thomastoumasu",
+  "avatar_url": "https://gravatar.com/avatar/42dd784b61ac3992e45bdf1d1454ec05?s=200&d=robohash&r=r",
+  "embeds": [
+    {
+      "description": "drink more coffee",
+      "color": 65280
+    }
+  ]
+}

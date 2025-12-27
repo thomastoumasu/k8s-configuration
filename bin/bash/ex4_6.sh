@@ -22,11 +22,12 @@ kubectl create namespace project
 gcloud container clusters get-credentials $CLUSTER_NAME --location=$CONTROL_PLANE_LOCATION 
 # or --zone=$LOCATION
 
-# install helm chart for nats
-helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-helm repo update
-# should see nats                    https://nats-io.github.io/k8s/helm/charts/ 
-helm repo list
+# # install helm chart for nats
+# helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+# helm repo update
+# # should see nats                    https://nats-io.github.io/k8s/helm/charts/ 
+# helm repo list
+kubens project
 helm install my-nats nats/nats
 
 # push on main to deploy project on namespace project (see .github/workflows/deploy_the-project.yaml)
@@ -34,10 +35,19 @@ helm install my-nats nats/nats
 # eventually get the Gateway IP to connect the domain (in cloudflare)
 kubectl get gateway shared-gateway -n infra
 
-# check the logs
+# check the logs of the broadcaster
 POD=$(kubectl get pods -o=name | grep broadcaster)
 kubectl describe $POD
-kubectl logs $POD
+kubectl wait --for=condition=Ready $POD
+kubectl logs -f $POD
 
 # monitor simply with nats
 kubectl port-forward my-nats-0 8222:8222
+
+# # debug
+# kubectl delete -f ./the_project/broadcaster/manifests/deployment.yaml
+# cd the_project/broadcaster
+# docker build --platform linux/amd64 -t broadcaster . 
+# docker tag broadcaster thomastoumasu/k8s-broadcaster:c && docker push thomastoumasu/k8s-broadcaster:c
+# cd ../../
+# kubectl apply -f ./the_project/broadcaster/manifests/deployment.yaml

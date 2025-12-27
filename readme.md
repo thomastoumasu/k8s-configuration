@@ -39,3 +39,4 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [4.2](https://github.com/thomastoumasu/k8s-submission/tree/4.2) Template: Readiness/Liveness probes and load balancer health checks
 - [4.3](https://github.com/thomastoumasu/k8s-submission/tree/4.3)
 - [4.4](https://github.com/thomastoumasu/k8s-submission/tree/4.4) Template: Canary Release using a Prometheus query as a success condition
+- [4.6](https://github.com/thomastoumasu/k8s-submission/tree/4.4) Template: NATS as message queue system
