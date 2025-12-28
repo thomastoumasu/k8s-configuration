@@ -107,6 +107,7 @@ jobs:
           kubectl create namespace $NAMESPACE || true
           kubectl label namespaces $NAMESPACE shared-gateway-access=true --overwrite=true
           kubectl config set-context --current --namespace=$NAMESPACE
+          helm install my-nats nats/nats
           kustomize edit set namespace $NAMESPACE
           kustomize edit set image PROJECT/BACKEND_IMAGE=$BACKEND_IMAGE_TAG
           kustomize edit set image PROJECT/FRONTEND_IMAGE=$FRONTEND_IMAGE_TAG
@@ -117,8 +118,8 @@ jobs:
           kustomize build . --load-restrictor LoadRestrictionsNone | cat
           kustomize build . --load-restrictor LoadRestrictionsNone | kubectl apply -f -
           echo "Ressources deployed: "
-          kubectl get all -n project
-          kubectl get events -n project  --sort-by='.lastTimestamp'
+          kubectl get all -n $NAMESPACE
+          kubectl get events -n $NAMESPACE  --sort-by='.lastTimestamp'
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide
           kubectl get gateway shared-gateway -n infra
