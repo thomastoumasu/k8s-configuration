@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  info(`--server: received put request for this todo: ${JSON.stringify(req.body)}`);
+  info(`--server: received put request for this todo: ${JSON.stringify(req.body)} at id: ${req.params.id}`);
   const todoToUpdate = await Todo.findById(req.params.id);
   if (!todoToUpdate) {
     return res.status(410).end(); // gone

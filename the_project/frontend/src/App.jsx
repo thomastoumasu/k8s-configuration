@@ -10,6 +10,7 @@ function App() {
   useEffect(() => {
     todoService.getAll().then(todos => {
       setTodos(todos);
+      console.log('fetched: ', todos)
     });
   }, []);
 
