@@ -3,7 +3,6 @@ import axios from 'axios';
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 const getAll = () => {
-  console.log('fetching todos from: ', baseUrl);
   const request = axios.get(baseUrl);
   return request.then(response => response.data);
 };
@@ -13,7 +12,13 @@ const create = async newObject => {
   return response.data;
 };
 
+const update = async (id, newObject) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newObject);
+  return response.data;
+};
+
 export default {
   getAll,
   create,
+  update,
 };

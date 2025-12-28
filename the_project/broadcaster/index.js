@@ -8,7 +8,7 @@ const nc = NATS.connect({
   url: process.env.NATS_URL || 'nats://nats:4222',
 });
 
-const webhook = 'https://study.cs.helsinki.fi/discord/webhooks/1264842173619109949';
+const webhook = process.env.DISCORD_WEBHOOK || 'https://study.cs.helsinki.fi/discord/webhooks/';
 
 let preoccupied = false;
 

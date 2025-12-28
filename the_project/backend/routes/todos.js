@@ -2,10 +2,10 @@ import { info } from '../utils/logger.js';
 import { Todo } from '../models/Todo.js';
 import express from 'express';
 const router = express.Router();
-import NATS from "nats";
-const nc = NATS.connect({
-  url: process.env.NATS_URL || "nats://nats:4222",
-});
+import NATS from 'nats';
+// const nc = NATS.connect({
+//   url: process.env.NATS_URL || 'nats://nats:4222',
+// });
 
 router.get('/', async (req, res) => {
   const todos = await Todo.find({});
@@ -27,8 +27,22 @@ router.post('/', async (req, res) => {
     });
     res.send(todo);
     info(`--server: so created following Todo: ${JSON.stringify(todo)}`);
-    nc.publish("new_todos", JSON.stringify(newTodo));
+    // nc.publish('new_todos', JSON.stringify(newTodo));
   }
+});
+
+router.put('/:id', async (req, res) => {
+  info(`--server: received put request for this todo: ${JSON.stringify(req.body)}`);
+  const todoToUpdate = await Todo.findById(req.params.id);
+  if (!todoToUpdate) {
+    return res.status(410).end(); // gone
+  }
+  todoToUpdate.done = req.body.done;
+  const updatedTodo = await todoToUpdate.save(); // findByIdAndUpdate should be better than findById and save
+  res.json(updatedTodo);
+  // const todoToUpdate = todos.find(todo => todo.id === req.params.id);
+  // todoToUpdate.done = req.body.done;
+  // res.json(todoToUpdate);
 });
 
 export default router;

@@ -6,20 +6,35 @@ let todos = [
   {
     id: '1',
     text: 'relax',
+    done: false,
   },
   {
     id: '2',
     text: 'drink coffee',
+    done: true,
   },
   {
     id: '3',
     text: 'drink more coffee',
+    done: false,
   },
 ];
 
 router.get('/', (req, res) => {
   res.json(todos);
 });
+
+// router.get('/:id', async (req, res) => {
+//   // logger.info('--controllers/blogs.js: request.params.id: ', request.params.id)
+//   // const todo = await Todo.findById(request.params.id);
+//   // if (todo) {
+//   //   response.json(todo);
+//   // } else {
+//   //   response.status(404).end();
+//   // }
+//   const todo = todos.find(todo => todo.id === req.params.id);
+//   res.json(todo);
+// });
 
 router.post('/', (req, res) => {
   const newTodo = req.body;
@@ -36,6 +51,20 @@ router.post('/', (req, res) => {
     todos = todos.concat(newTodo);
     res.json(newTodo);
   }
+});
+
+router.put('/:id', async (req, res) => {
+  // const todoToUpdate = await Todo.findById(req.params.id);
+  // if (!todoToUpdate) {
+  //   return res.status(410).end(); // gone
+  // }
+  // todoToUpdate.done = req.body.done;
+  // const updatedTodo = await todoToUpdate.save(); // findByIdAndUpdate should be better than findById and save like here, see model solution
+  // res.json(updatedTodo);
+  info(`--server: received put request for this todo: ${JSON.stringify(req.body)}`);
+  const todoToUpdate = todos.find(todo => todo.id === req.params.id);
+  todoToUpdate.done = req.body.done;
+  res.json(todoToUpdate);
 });
 
 export default router;

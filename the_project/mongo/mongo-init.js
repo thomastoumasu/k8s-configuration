@@ -5,6 +5,6 @@ db.createUser({
   roles: [{ role: 'dbOwner', db: 'the_database' }],
 });
 db.createCollection('todos');
-db.todos.insert({ text: 'relax' });
-db.todos.insert({ text: 'drink coffee' });
+db.todos.insert({ text: 'relax', done: false });
+db.todos.insert({ text: 'drink coffee', done: true });
 console.log('mongo-init.js was called: end');
