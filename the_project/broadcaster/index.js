@@ -13,7 +13,7 @@ const webhook = process.env.DISCORD_WEBHOOK || 'https://study.cs.helsinki.fi/dis
 let preoccupied = false;
 
 const setReadyToBroadcast = () => {
-  const data_subscription = nc.subscribe('new_todos', { queue: 'broadcaster.workers' }, msg => {
+  const data_subscription = nc.subscribe('todos', { queue: 'broadcaster.workers' }, msg => {
     console.log(`Broadcaster ${hostname} received msg: ${msg}`);
     preoccupied = true;
     nc.unsubscribe(data_subscription);
@@ -22,11 +22,14 @@ const setReadyToBroadcast = () => {
   preoccupied = false;
 };
 
-const broadcastTodo = async ({ text }) => {
+const broadcastTodo = async ({ text, done }) => {
   // https://discord.com/developers/docs/resources/message#embed-object
   console.log('Processing...');
+  const content = done
+    ? 'A Todo was completed on http://www.thomastoumasu.dpdns.org'
+    : 'A new Todo was created on http://www.thomastoumasu.dpdns.org';
   const payload = {
-    content: 'A new Todo was created on http://www.thomastoumasu.dpdns.org',
+    content,
     username: 'thomastoumasu',
     avatar_url: 'https://gravatar.com/avatar/42dd784b61ac3992e45bdf1d1454ec05?s=200&d=robohash&r=r',
     embeds: [

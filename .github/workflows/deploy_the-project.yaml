@@ -18,6 +18,7 @@ env:
   IMAGEFINDER_IMAGE: image-finder
   DB_IMAGE: mongo
   BROADCASTER_IMAGE: broadcaster
+  WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
   SERVICE: backend-dep
   # BRANCH: ${{ github.ref_name }} or ${GITHUB_REF#refs/heads/}, check https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-4/deployment-pipeline
   BRANCH: ${{ github.head_ref || github.ref_name }}
@@ -79,7 +80,7 @@ jobs:
           docker build --build-arg VITE_BACKEND_URL="http://${SITE}/api/todos" --platform linux/amd64 --tag $FRONTEND_IMAGE_TAG ./the_project/frontend
           docker build --platform linux/amd64 --tag $IMAGEFINDER_IMAGE_TAG ./the_project/image-finder
           docker build --platform linux/amd64 --tag $DB_IMAGE_TAG ./the_project/mongo
-          docker build --platform linux/amd64 --tag $BROADCASTER_IMAGE_TAG ./the_project/broadcaster
+          docker build --build-arg DISCORD_WEBHOOK=$WEBHOOK --platform linux/amd64 --tag $BROADCASTER_IMAGE_TAG ./the_project/broadcaster
 
       - name: Publish
         run: |-
