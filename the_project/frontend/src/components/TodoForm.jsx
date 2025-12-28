@@ -7,6 +7,7 @@ const TodoForm = ({ createTodo }) => {
     event.preventDefault();
     const todoObject = {
       text: newTodo,
+      done: false,
     };
     createTodo(todoObject);
     setNewTodo('');
