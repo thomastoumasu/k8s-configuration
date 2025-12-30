@@ -2,39 +2,23 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- ../../base
+  - ../../base
 
 patches:
-- patch: |
-    - op: replace
-      path: /spec/hostnames
-      value:
-        - www.thomastoumasu.dpdns.org
-  target:
-    kind: HTTPRoute
-    name: frontend-route
-- patch: |
-    - op: replace
-      path: /spec/hostnames
-      value:
-        - www.thomastoumasu.dpdns.org
-  target:
-    kind: HTTPRoute
-    name: backend-route
+  - patch: |
+      - op: replace
+        path: /spec/hostnames
+        value:
+          - www.thomastoumasu.dpdns.org
+    target:
+      kind: HTTPRoute
+      name: frontend-route
+  - patch: |
+      - op: replace
+        path: /spec/hostnames
+        value:
+          - www.thomastoumasu.dpdns.org
+    target:
+      kind: HTTPRoute
+      name: backend-route
 namespace: project
-images:
-- name: PROJECT/BACKEND_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend
-  newTag: main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
-- name: PROJECT/BROADCASTER_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/broadcaster
-  newTag: main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
-- name: PROJECT/DB_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/mongo
-  newTag: main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
-- name: PROJECT/FRONTEND_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/frontend
-  newTag: main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
-- name: PROJECT/IMAGEFINDER_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/image-finder
-  newTag: main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
