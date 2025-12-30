@@ -32,6 +32,7 @@ kubectl get -n argocd secrets argocd-initial-admin-secret -o yaml | grep -o 'pas
 # then sync the cluster (use repo https://github.com/thomastoumasu/k8s-submission and path ./the_project/kustomize/overlays/main to sync with the kustomization.yaml of main)
 # need to patch cm, https://argo-cd.readthedocs.io/en/release-2.3/user-guide/kustomize/
 kubectl patch cm argocd-cm -n argocd -p '{"data": {"kustomize.buildOptions": "--load-restrictor LoadRestrictionsNone"}}'
+kubectl patch cm argocd-cm -n argocd -p '{"data": {"kustomize.buildOptions": "--enable-helm"}}'
 
 
 kubectl create namespace infra || true
