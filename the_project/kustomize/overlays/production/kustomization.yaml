@@ -26,16 +26,16 @@ namespace: production
 images:
 - name: PROJECT/BACKEND_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend
-  newTag: main-bcac26b0807dc0f87004c56fd3ab0d2662ee733b
+  newTag: main-8c1ea9be09b3738e4df0222ade25c2a0b31b9f20
 - name: PROJECT/BROADCASTER_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/broadcaster
-  newTag: main-bcac26b0807dc0f87004c56fd3ab0d2662ee733b
+  newTag: main-8c1ea9be09b3738e4df0222ade25c2a0b31b9f20
 - name: PROJECT/DB_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/mongo
-  newTag: main-bcac26b0807dc0f87004c56fd3ab0d2662ee733b
+  newTag: main-8c1ea9be09b3738e4df0222ade25c2a0b31b9f20
 - name: PROJECT/FRONTEND_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/frontend
-  newTag: main-bcac26b0807dc0f87004c56fd3ab0d2662ee733b
+  newTag: main-8c1ea9be09b3738e4df0222ade25c2a0b31b9f20
 - name: PROJECT/IMAGEFINDER_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/image-finder
-  newTag: main-bcac26b0807dc0f87004c56fd3ab0d2662ee733b
+  newTag: main-8c1ea9be09b3738e4df0222ade25c2a0b31b9f20
