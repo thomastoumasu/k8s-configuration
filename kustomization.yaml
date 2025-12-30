@@ -1,0 +1,36 @@
+# kustomization file for exercises (the_project has its own in the_project folder)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./manifests/gateway.yaml
+  - ./pingpong/postgres/manifests/config-map.yaml
+  - ./pingpong/postgres/manifests/statefulset_gke.yaml
+  - ./pingpong/manifests/deployment_gke.yaml
+  - ./pingpong/manifests/service_gke_gat.yaml
+  - ./pingpong/manifests/route_gke.yaml
+  - ./pingpong/manifests/lb-healthcheckpolicy.yaml
+  - ./log_output/manifests/config-map.yaml
+  - ./log_output/manifests/deployment_gke.yaml
+  - ./log_output/manifests/service_gke_gat.yaml
+  - ./log_output/manifests/route_gke.yaml
+  - ./log_output/manifests/lb-healthcheckpolicy.yaml
+# images:
+# - name: PROJECT/DB_IMAGE # set by github actions for deployment on gke
+#   # newName: mongo # if gke without github actions
+# - name: PROJECT/BACKEND_IMAGE
+#   # newName: thomastoumasu/k8s-backend:3.3-amd
+
+# debug
+# kubectl apply -f ./manifests/gateway.yaml
+# # deploy postgres, pingpong and log-output in namespace exercises
+# kubectl apply -f ./pingpong/postgres/manifests/config-map.yaml
+# kubectl apply -f ./pingpong/postgres/manifests/statefulset_gke.yaml
+# kubectl apply -f ./pingpong/manifests/deployment_gke.yaml
+# kubectl apply -f ./pingpong/manifests/service_gke_gat.yaml
+# kubectl apply -f ./pingpong/manifests/route_gke.yaml
+# kubectl apply -f ./pingpong/manifests/lb-healthcheckpolicy.yaml
+# kubectl apply -f ./log_output/manifests/config-map.yaml
+# kubectl apply -f ./log_output/manifests/deployment_gke.yaml
+# kubectl apply -f ./log_output/manifests/service_gke_gat.yaml
+# kubectl apply -f ./log_output/manifests/route_gke.yaml
+# kubectl apply -f ./log_output/manifests/lb-healthcheckpolicy.yaml
