@@ -1,13 +1,17 @@
-const TodosList = ({ todos, completeTodo }) => {
+import { MdOutlineDone } from 'react-icons/md';
+
+const TodosList = ({ todos, complete }) => {
   return (
     <>
-      {/* <h2>Todos</h2> */}
       <ul>
         {todos
           .filter(todo => !todo.done)
           .map(todo => (
             <li className="todo" key={todo.id}>
-              {todo.text} <button onClick={() => completeTodo(todo.id)}> done </button>
+              {todo.text}{' '}
+              <button onClick={complete(todo.id)}>
+                <MdOutlineDone color="#15d465" />
+              </button>
             </li>
           ))}
       </ul>

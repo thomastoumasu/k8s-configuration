@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import HourlyImage from './components/HourlyImage';
 import TodoForm from './components/TodoForm';
+import TodosList from './components/TodosList';
 import todoService from './services/todos.js';
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   useEffect(() => {
     todoService.getAll().then(todos => {
       setTodos(todos);
-      console.log('fetched: ', todos)
+      // console.log('fetched: ', todos);
     });
   }, []);
 
@@ -20,7 +21,7 @@ function App() {
     });
   };
 
-  const completeTodo = id => {
+  const completeTodo = id => () => {
     const todo = todos.find(todo => todo.id === id);
     const todoToUpdate = { ...todo, done: true };
     todoService
@@ -38,27 +39,7 @@ function App() {
       <h1>The project App</h1>
       <HourlyImage />
       <TodoForm createTodo={addTodo} />
-      <>
-        <ul>
-          {todos
-            .filter(todo => !todo.done)
-            .map(todo => (
-              <li className="todo" key={todo.id}>
-                {todo.text} <button onClick={() => completeTodo(todo.id)}> done </button>
-              </li>
-            ))}
-        </ul>
-        <h3>:)</h3>
-        <ul>
-          {todos
-            .filter(todo => todo.done)
-            .map(todo => (
-              <li className="todo" key={todo.id}>
-                {todo.text}
-              </li>
-            ))}
-        </ul>
-      </>
+      <TodosList todos={todos} complete={completeTodo} />
       <p className="footer">DevOps with Kubernetes 2025</p>
     </>
   );
