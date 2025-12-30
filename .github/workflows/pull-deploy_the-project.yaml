@@ -41,12 +41,12 @@ jobs:
       - name: 'Use gcloud CLI'
         run: gcloud info
 
-      - name: 'Get GKE credentials'
-        uses: 'google-github-actions/get-gke-credentials@v2'
-        with:
-          cluster_name: '${{ env.GKE_CLUSTER }}'
-          project_id: '${{ env.PROJECT_ID }}'
-          location: '${{ env.GKE_ZONE }}'
+      # - name: 'Get GKE credentials'
+      #   uses: 'google-github-actions/get-gke-credentials@v2'
+      #   with:
+      #     cluster_name: '${{ env.GKE_CLUSTER }}'
+      #     project_id: '${{ env.PROJECT_ID }}'
+      #     location: '${{ env.GKE_ZONE }}'
 
       - name: 'Set up Docker Buildx'
         run: gcloud auth configure-docker "$REGISTRY"
@@ -104,31 +104,15 @@ jobs:
           echo "The code is on branch: BRANCH=$BRANCH"
           echo "The application will be deployed on namespace: NAMESPACE=$NAMESPACE"
           cd ./the_project/kustomize/overlays/${KUSTOM}
-          kubectl create namespace infra || true
-          kubectl create namespace $NAMESPACE || true
-          kubectl label namespaces $NAMESPACE shared-gateway-access=true --overwrite=true
-          # kubectl config set-context --current --namespace=$NAMESPACE
-          helm repo add nats https://nats-io.github.io/k8s/helm/charts/
-          helm repo update
-          helm install my-nats nats/nats || true
           kustomize edit set namespace $NAMESPACE
           kustomize edit set image PROJECT/BACKEND_IMAGE=$BACKEND_IMAGE_TAG
           kustomize edit set image PROJECT/FRONTEND_IMAGE=$FRONTEND_IMAGE_TAG
           kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
           kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
           kustomize edit set image PROJECT/BROADCASTER_IMAGE=$BROADCASTER_IMAGE_TAG
-          # echo "Manifests about to be deployed: "
-          # kustomize build . --load-restrictor LoadRestrictionsNone | cat
+          echo "Manifests about to be deployed: "
+          kustomize build . | cat
           # kustomize build . --load-restrictor LoadRestrictionsNone | kubectl apply -f -
-          # echo "Ressources deployed: "
-          # kubectl get all -n $NAMESPACE
-          # kubectl get events -n $NAMESPACE  --sort-by='.lastTimestamp'
-          # kubectl rollout status deployment $SERVICE
-          # kubectl get services -o wide
-          # kubectl get gateway shared-gateway -n infra
-          # gcloud compute url-maps list
-          # kubectl describe gateway shared-gateway -n infra
-          # kubectl describe httproutes frontend-route -n $NAMESPACE
 
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9

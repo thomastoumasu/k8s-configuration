@@ -41,13 +41,7 @@ kubectl label namespaces project shared-gateway-access=true --overwrite=true
 # push on main to create cluster description in repo (namespace project) (see .github/workflows/pull-deploy_the-project.yaml)
 # and get gateway IP in argo, use it to connect the domain (in cloudflare)
 
-# no GKE credentials?
-# gateway deployed from kustomize?
-  create namespaces,
-# how to patch label?
-# only fixed two namespaces + infra
-# helm from kustomize?
-# base file changed?
+# no GKE credentials
 
 
 # # debug

@@ -3,9 +3,9 @@ import { Todo } from '../models/Todo.js';
 import express from 'express';
 const router = express.Router();
 import NATS from 'nats';
-const nc = NATS.connect({
-  url: process.env.NATS_URL || 'nats://nats:4222',
-});
+// const nc = NATS.connect({
+//   url: process.env.NATS_URL || 'nats://nats:4222',
+// });
 
 router.get('/', async (req, res) => {
   const todos = await Todo.find({});
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     });
     res.send(todo);
     info(`--server: so created following Todo: ${JSON.stringify(todo)}`);
-    nc.publish('todos', JSON.stringify(newTodo));
+    // nc.publish('todos', JSON.stringify(newTodo));
   }
 });
 
@@ -40,7 +40,7 @@ router.put('/:id', async (req, res) => {
   todoToUpdate.done = req.body.done;
   const updatedTodo = await todoToUpdate.save(); // findByIdAndUpdate should be better than findById and save
   res.json(updatedTodo);
-  nc.publish('todos', JSON.stringify(updatedTodo));
+  // nc.publish('todos', JSON.stringify(updatedTodo));
 });
 
 export default router;

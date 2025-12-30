@@ -1,25 +1,40 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../manifests/gateway_shared.yaml
-  - ../../mongo/manifests/config-map.yaml
-  - ../../mongo/manifests/statefulset_gke.yaml
-  - ../../backend/manifests/deployment_gke_gat.yaml
-  - ../../backend/manifests/route_gke.yaml
-  - ../../backend/manifests/lb-healthcheckpolicy.yaml
-  - ../../manifests/persistentvolumeclaim_gke.yaml
-  - ../../image-finder/manifests/deployment_gke.yaml
-  - ../../frontend/manifests/deployment_gke_gat.yaml
-  - ../../frontend/manifests/route_gke.yaml
-  - ../../frontend/manifests/lb-healthcheckpolicy.yaml
-  - ../../broadcaster/manifests/deployment.yaml
+  - ./gateway_shared.yaml
+  - ./mongo-config-map.yaml
+  - ./mongo-statefulset_gke.yaml
+  - ./backend-deployment_gke_gat.yaml
+  - ./backend-route_gke.yaml
+  - ./backend-lb-healthcheckpolicy.yaml
+  - ./persistentvolumeclaim_gke.yaml
+  - ./image-finder-deployment_gke.yaml
+  - ./frontend-deployment_gke_gat.yaml
+  - ./frontend-route_gke.yaml
+  - ./frontend-lb-healthcheckpolicy.yaml
+  # - ../../broadcaster/manifests/deployment.yaml
 images:
   - name: PROJECT/DB_IMAGE # set by github actions for deployment on gke
     # newName: mongo # if gke without github actions
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/mongo:main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
   - name: PROJECT/BACKEND_IMAGE
     # newName: thomastoumasu/k8s-backend:3.3-amd
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend:main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
   - name: PROJECT/IMAGEFINDER_IMAGE
     # newName: thomastoumasu/k8s-image-finder:3.3-amd
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/image-finder:main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
   - name: PROJECT/FRONTEND_IMAGE
     # newName: thomastoumasu/k8s-frontend:3.3b-amd
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/frontend:main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
   - name: PROJECT/BROADCASTER_IMAGE
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/broadcaster:main-e54246b2b18f2e3afaee812f73826edffc8a4c2f
+# helmCharts:
+#   - name: nats
+#     repo: https://nats-io.github.io/k8s/helm/charts/
+# helmCharts:
+#   - name: postgresql
+#     repo: https://charts.bitnami.com/bitnami
+#     version: 16.7.27
+#     releaseName: postgresql
+#     namespace: dev
+# valuesFile: values-dev.yaml
