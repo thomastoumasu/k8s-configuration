@@ -21,3 +21,4 @@ patches:
         path: /spec/hostnames
         value:
           - www.thomastoumasu.xx.kg
+namespace: staging

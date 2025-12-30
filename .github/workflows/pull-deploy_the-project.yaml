@@ -93,7 +93,6 @@ jobs:
           kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
           kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
           kustomize edit set image PROJECT/BROADCASTER_IMAGE=$BROADCASTER_IMAGE_TAG
-          echo "The application will be deployed on namespace: NAMESPACE=$NAMESPACE"
           cd ./the_project/kustomize/overlays/${KUSTOM}
           echo "Manifests about to be deployed: "
           kustomize build . | cat

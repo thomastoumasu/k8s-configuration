@@ -2,39 +2,40 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- ../../base
+  - ../../base
+    # - ../../broadcaster/manifests/deployment.yaml
 
 patches:
-- patch: |
-    - op: replace
-      path: /spec/hostnames
-      value:
-        - www.thomastoumasu.dpdns.org
-  target:
-    kind: HTTPRoute
-    name: frontend-route
-- patch: |
-    - op: replace
-      path: /spec/hostnames
-      value:
-        - www.thomastoumasu.dpdns.org
-  target:
-    kind: HTTPRoute
-    name: backend-route
+  - patch: |
+      - op: replace
+        path: /spec/hostnames
+        value:
+          - www.thomastoumasu.dpdns.org
+    target:
+      kind: HTTPRoute
+      name: frontend-route
+  - patch: |
+      - op: replace
+        path: /spec/hostnames
+        value:
+          - www.thomastoumasu.dpdns.org
+    target:
+      kind: HTTPRoute
+      name: backend-route
 images:
-- name: PROJECT/BACKEND_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend
-  newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
-- name: PROJECT/BROADCASTER_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/broadcaster
-  newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
-- name: PROJECT/DB_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/mongo
-  newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
-- name: PROJECT/FRONTEND_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/frontend
-  newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
-- name: PROJECT/IMAGEFINDER_IMAGE
-  newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/image-finder
-  newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
-namespace: project
+  - name: PROJECT/BACKEND_IMAGE
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend
+    newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
+  - name: PROJECT/BROADCASTER_IMAGE
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/broadcaster
+    newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
+  - name: PROJECT/DB_IMAGE
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/mongo
+    newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
+  - name: PROJECT/FRONTEND_IMAGE
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/frontend
+    newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
+  - name: PROJECT/IMAGEFINDER_IMAGE
+    newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/image-finder
+    newTag: main-e35a01c21f41cf29da5590f069cf8cff772e7eaa
+namespace: production

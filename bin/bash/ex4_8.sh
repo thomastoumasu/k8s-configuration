@@ -35,7 +35,12 @@ kubectl get svc -n argocd --watch
 # get initial password for admin (needs base64 decoding)
 kubectl get -n argocd secrets argocd-initial-admin-secret -o yaml | grep -o 'password: .*' | cut -f2- -d: | base64 --decode
 # log into argo in browser at external IP using admin and this password
-# then sync the cluster (use repo https://github.com/thomastoumasu/k8s-submission and path ./the_project/kustomize/overlays/main to sync with the kustomization.yaml of main)
+# then sync the cluster 
+# manually (use repo https://github.com/thomastoumasu/k8s-submission and path ./the_project/kustomize/overlays/main to sync with the kustomization.yaml of main)
+# or declaratively
+kubectl apply -n argocd -f ./the_project/kustomize/infra/application.yaml
+kubectl apply -n argocd -f ./the_project/kustomize/overlays/production/application.yaml
+# kubectl apply -n argocd -f ./the_project/kustomize/overlays/staging/application.yaml
 
 
 # push on main to create cluster description in repo (namespace prod) (see .github/workflows/pull-deploy_the-project.yaml)
