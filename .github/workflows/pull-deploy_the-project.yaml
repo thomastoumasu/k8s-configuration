@@ -1,0 +1,137 @@
+name: Build and publish application
+# need a service account .json file as GKE_SA_KEY (= put full file in repo environment secret): gcloud iam service-accounts keys create ./private-key.json --iam-account=github-actions@dwk-gke-331210.iam.gserviceaccount.com
+# then: create cluster as dwk-cluster, see ex4_8.sh
+# and: gateway IP must be known and built into ENV VITE_BACKEND_URL in frontend Dockerfile so that frontend can reach backend
+# here done with a domain name so only need to put the gateway IP in the cloudflare DNS record for the domains (see SITE below)
+
+on:
+  push:
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  REGISTRY: europe-north1-docker.pkg.dev
+  REPOSITORY: my-repository
+  BACKEND_IMAGE: backend
+  FRONTEND_IMAGE: frontend
+  IMAGEFINDER_IMAGE: image-finder
+  DB_IMAGE: mongo
+  BROADCASTER_IMAGE: broadcaster
+  WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  SERVICE: backend-dep
+  # BRANCH: ${{ github.ref_name }} or ${GITHUB_REF#refs/heads/}, check https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-4/deployment-pipeline
+  BRANCH: ${{ github.head_ref || github.ref_name }}
+
+jobs:
+  build-publish:
+    name: Build, Push, Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GKE_SA_KEY }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Use gcloud CLI'
+        run: gcloud info
+
+      # - name: 'Get GKE credentials'
+      #   uses: 'google-github-actions/get-gke-credentials@v2'
+      #   with:
+      #     cluster_name: '${{ env.GKE_CLUSTER }}'
+      #     project_id: '${{ env.PROJECT_ID }}'
+      #     location: '${{ env.GKE_ZONE }}'
+
+      - name: 'Set up Docker Buildx'
+        run: gcloud auth configure-docker "$REGISTRY"
+
+      - name: Define namespace for application deployment and backend url
+        run: >-
+          case $BRANCH in \
+            main)
+              echo "NAMESPACE="project"" >> $GITHUB_ENV
+              echo "KUSTOM="main"" >> $GITHUB_ENV
+              echo "SITE="www.thomastoumasu.dpdns.org"" >> $GITHUB_ENV
+              ;;
+            *)
+              echo "NAMESPACE=$BRANCH" >> $GITHUB_ENV
+              echo "KUSTOM="branch"" >> $GITHUB_ENV
+              echo "SITE="www.thomastoumasu.xx.kg"" >> $GITHUB_ENV
+              ;;
+          esac
+
+      - name: 'Form the images names'
+        run: |-
+          echo "BACKEND_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+          echo "FRONTEND_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+          echo "IMAGEFINDER_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGEFINDER_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+          echo "DB_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$DB_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+          echo "BROADCASTER_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BROADCASTER_IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build
+        run: |-
+          docker build --platform linux/amd64 --tag $BACKEND_IMAGE_TAG ./the_project/backend
+          docker build --build-arg VITE_BACKEND_URL="http://${SITE}/api/todos" --platform linux/amd64 --tag $FRONTEND_IMAGE_TAG ./the_project/frontend
+          docker build --platform linux/amd64 --tag $IMAGEFINDER_IMAGE_TAG ./the_project/image-finder
+          docker build --platform linux/amd64 --tag $DB_IMAGE_TAG ./the_project/mongo
+          docker build --build-arg DISCORD_WEBHOOK=$WEBHOOK --platform linux/amd64 --tag $BROADCASTER_IMAGE_TAG ./the_project/broadcaster
+
+      - name: Publish
+        run: |-
+          docker push $BACKEND_IMAGE_TAG
+          docker push $FRONTEND_IMAGE_TAG
+          docker push $IMAGEFINDER_IMAGE_TAG
+          docker push $DB_IMAGE_TAG
+          docker push $BROADCASTER_IMAGE_TAG
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2.1.0
+
+      # - name: Deploy shared gateway on "infra" namespace
+      #   run: |-
+      #     kubectl create namespace infra || true
+      #     kubectl config set-context --current --namespace=infra
+      #     kubectl apply -f ./the_project/manifests/gateway_shared.yaml
+
+      - name: Use right images
+        run: |-
+          echo "The code is on branch: BRANCH=$BRANCH"
+          echo "The application will be deployed on namespace: NAMESPACE=$NAMESPACE"
+          # cd ./the_project/kustomize/overlays/${KUSTOM}
+          kubectl create namespace infra || true
+          kubectl create namespace $NAMESPACE || true
+          kubectl label namespaces $NAMESPACE shared-gateway-access=true --overwrite=true
+          # kubectl config set-context --current --namespace=$NAMESPACE
+          helm repo add nats https://nats-io.github.io/k8s/helm/charts/
+          helm repo update
+          helm install my-nats nats/nats || true
+          kustomize edit set namespace $NAMESPACE
+          kustomize edit set image PROJECT/BACKEND_IMAGE=$BACKEND_IMAGE_TAG
+          kustomize edit set image PROJECT/FRONTEND_IMAGE=$FRONTEND_IMAGE_TAG
+          kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
+          kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
+          kustomize edit set image PROJECT/BROADCASTER_IMAGE=$BROADCASTER_IMAGE_TAG
+          # echo "Manifests about to be deployed: "
+          # kustomize build . --load-restrictor LoadRestrictionsNone | cat
+          # kustomize build . --load-restrictor LoadRestrictionsNone | kubectl apply -f -
+          # echo "Ressources deployed: "
+          # kubectl get all -n $NAMESPACE
+          # kubectl get events -n $NAMESPACE  --sort-by='.lastTimestamp'
+          # kubectl rollout status deployment $SERVICE
+          # kubectl get services -o wide
+          # kubectl get gateway shared-gateway -n infra
+          # gcloud compute url-maps list
+          # kubectl describe gateway shared-gateway -n infra
+          # kubectl describe httproutes frontend-route -n $NAMESPACE
+
+      - name: commit kustomization.yaml to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: './the_project/kustomize/base/kustomization.yaml'
+          message: New version released ${{ github.sha }}

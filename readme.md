@@ -41,3 +41,5 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [4.4](https://github.com/thomastoumasu/k8s-submission/tree/4.4) Template: Canary Release using a Prometheus query as a success condition
 - [4.5](https://github.com/thomastoumasu/k8s-submission/tree/4.5)
 - [4.6](https://github.com/thomastoumasu/k8s-submission/tree/4.6) Template: NATS as message queue system
+- [4.7](https://github.com/thomastoumasu/k8s-submission/tree/4.7) Template: Pull configuration with ArgoCD (GitOps)
+- [4.8](https://github.com/thomastoumasu/k8s-submission/tree/4.7) Template: Github Action Pull configuration linked with ArgoCD deployment (GitOps)
