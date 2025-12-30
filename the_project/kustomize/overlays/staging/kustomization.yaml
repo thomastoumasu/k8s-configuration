@@ -25,16 +25,16 @@ namespace: staging
 images:
 - name: PROJECT/BACKEND_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend
-  newTag: test-argocd-55721efcb1c1b70be1ec9ae23da5cf94634b79a0
+  newTag: test-argocd-dd79fe3893884d40e4310213404c2ce743f07180
 - name: PROJECT/BROADCASTER_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/broadcaster
-  newTag: test-argocd-55721efcb1c1b70be1ec9ae23da5cf94634b79a0
+  newTag: test-argocd-dd79fe3893884d40e4310213404c2ce743f07180
 - name: PROJECT/DB_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/mongo
-  newTag: test-argocd-55721efcb1c1b70be1ec9ae23da5cf94634b79a0
+  newTag: test-argocd-dd79fe3893884d40e4310213404c2ce743f07180
 - name: PROJECT/FRONTEND_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/frontend
-  newTag: test-argocd-55721efcb1c1b70be1ec9ae23da5cf94634b79a0
+  newTag: test-argocd-dd79fe3893884d40e4310213404c2ce743f07180
 - name: PROJECT/IMAGEFINDER_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/image-finder
-  newTag: test-argocd-55721efcb1c1b70be1ec9ae23da5cf94634b79a0
+  newTag: test-argocd-dd79fe3893884d40e4310213404c2ce743f07180
