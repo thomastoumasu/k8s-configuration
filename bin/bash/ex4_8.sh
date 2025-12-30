@@ -39,8 +39,11 @@ kubectl patch cm argocd-cm -n argocd -p '{"data": {"kustomize.buildOptions": "--
 
 # no GKE credentials?
 # gateway deployed from kustomize?
-# base file changed?
+  create namespaces,
+# how to patch label?
+# only fixed two namespaces + infra
 # helm from kustomize?
+# base file changed?
 
 
 # # debug
