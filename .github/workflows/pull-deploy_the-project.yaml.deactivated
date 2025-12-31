@@ -1,9 +1,11 @@
 name: Build and publish application
-# no need for cluster credentials, deployment will be taken care of by ArgoCD
-# need a service account .json file as GKE_SA_KEY (= put full file in repo environment secret): gcloud iam service-accounts keys create ./private-key.json --iam-account=github-actions@dwk-gke-331210.iam.gserviceaccount.com
-# then: create cluster as dwk-cluster, see ex4_8.sh
-# and: gateway IP must be known and built into ENV VITE_BACKEND_URL in frontend Dockerfile so that frontend can reach backend
-# here done with a domain name so only need to put the gateway IP in the cloudflare DNS record for the domains (see SITE below)
+# creates application images, store them in image repo and patches/checks in the kustomization.yaml with the image names.
+# Contrary to push-deploy_the-project.yaml, do not deploy, so no need to open access to cluster to this action (so no cluster credentials given).
+# Deployment will be taken care of by ArgoCD, that watches changes to the kustomization.yaml.
+# check ex4_8.sh to set up ArgoCD.
+# Action needs: a service account .json file as GKE_SA_KEY (= put full file in repo environment secret): gcloud iam service-accounts keys create ./private-key.json --iam-account=github-actions@dwk-gke-331210.iam.gserviceaccount.com
+# Note: cluster gateway IP must be known and built into ENV VITE_BACKEND_URL in frontend Dockerfile so that frontend can reach backend from browser.
+# here this is done with a domain name so only need to put the gateway IP in the cloudflare DNS record for the domains (see SITE below).
 
 on:
   push:
@@ -70,7 +72,7 @@ jobs:
 
       - name: Build
         run: |-
-          docker build --platform linux/amd64 --tag $BACKEND_IMAGE_TAG ./the_project/backend
+          docker build --build-arg ENVIRONMENT=$NAMESPACE --platform linux/amd64 --tag $BACKEND_IMAGE_TAG ./the_project/backend
           docker build --build-arg VITE_BACKEND_URL="http://${SITE}/api/todos" --platform linux/amd64 --tag $FRONTEND_IMAGE_TAG ./the_project/frontend
           docker build --platform linux/amd64 --tag $IMAGEFINDER_IMAGE_TAG ./the_project/image-finder
           docker build --platform linux/amd64 --tag $DB_IMAGE_TAG ./the_project/mongo

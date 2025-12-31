@@ -1,0 +1,36 @@
+name: Test to catch on push or on release
+
+on:
+  push:
+    branches:
+      - main
+      # - '**'
+  release:
+    types: [published]
+
+env:
+  EVENT: ${{ github.event_name }}
+
+jobs:
+  set-namespace:
+    runs-on: ubuntu-latest
+    outputs:
+      namespace: ${{ steps.set.outputs.NAMESPACE }}
+    steps:
+      - name: Set namespace depending on repo action
+        id: set
+        run: |
+          case $EVENT in
+            release) echo "NAMESPACE="production"" >> $GITHUB_OUTPUT ;;
+            *) echo "NAMESPACE="staging"" >> $GITHUB_OUTPUT ;;
+          esac
+
+  display-namespace:
+    needs: [set-namespace]
+    runs-on: ubuntu-latest
+    env:
+      NAMESPACE: ${{ needs.set-namespace.outputs.namespace }}
+    steps:
+      - name: Display namespace
+        run: |
+          echo "namespace is $NAMESPACE"
