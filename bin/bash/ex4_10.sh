@@ -1,8 +1,10 @@
-# 4.9 pull deployment pipeline of the_project with argo
-# github action has changed: instead of deploying from action, action changes and checks in the kustomization file. 
-# Argo is linked with this file and syncs the cluster accordingly.
+# 4.10 pull deployment pipeline of the_project with argo
+# uses different repositories for the code (k8s-application) and configurations (this repo).
+# A push in code repo triggers a github action that builds the images and updates the configuration files here with the image names.
+# Argo is linked with this repo and syncs the cluster accordingly.
 # https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-5/gitops
 
+# set up the cluster
 CLUSTER_NAME=dwk-cluster
 LOCATION=europe-north1-b
 CONTROL_PLANE_LOCATION=europe-north1-b
@@ -10,7 +12,6 @@ PROJECT_ID=dwk-gke-480809
 PROJECT_NUMBER=267537331918
 KSA_NAME=gcs-api-service-account
 BUCKET=thomastoumasu_k8s-bucket
-# create cluster
 gcloud -v
 gcloud auth login
 gcloud config set project $PROJECT_ID
@@ -23,8 +24,6 @@ kubectl cluster-info
 # set kube-config to point at the cluster
 gcloud container clusters get-credentials $CLUSTER_NAME --location=$CONTROL_PLANE_LOCATION 
 # or --zone=$LOCATION
-# sanity check: make sure Workload Identity Federation was indeed activated on the nodes used, output should be mode=GKE_METADATA, see ex3_10.sh
-gcloud container node-pools describe default-pool --cluster=$CLUSTER_NAME --zone=$LOCATION --format="value(config.workloadMetadataConfig)"
 
 kubectl create namespace infra || true
 kubectl create namespace production || true
@@ -57,9 +56,7 @@ kubectl get svc -n argocd --watch
 # get initial password for admin (needs base64 decoding)
 kubectl get -n argocd secrets argocd-initial-admin-secret -o yaml | grep -o 'password: .*' | cut -f2- -d: | base64 --decode
 # log into argo in browser at external IP using admin and this password
-# then sync the cluster 
-# manually (use repo https://github.com/thomastoumasu/k8s-submission and path ./the_project/kustomize/overlays/main to sync with the kustomization.yaml of main)
-# or declaratively
+# then sync the cluster declaratively
 kubectl apply -n argocd -f ./the_project/kustomize/infra/application.yaml
 kubectl apply -n argocd -f ./the_project/kustomize/overlays/staging/application.yaml
 kubectl apply -n argocd -f ./the_project/kustomize/overlays/production/nats.yaml
