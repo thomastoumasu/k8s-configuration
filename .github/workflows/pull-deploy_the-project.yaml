@@ -31,7 +31,7 @@ env:
 
 jobs:
   set-environment:
-    name: Sets environment depending on github event
+    name: Sets environment
     runs-on: ubuntu-latest
     outputs:
       namespace: ${{ steps.set.outputs.NAMESPACE }}
@@ -44,11 +44,12 @@ jobs:
             release) 
               echo "NAMESPACE="production"" >> $GITHUB_OUTPUT
               echo "SITE="www.thomastoumasu.dpdns.org"" >> $GITHUB_OUTPUT ;;
+              echo "namespace is $NAMESPACE, site is $SITE"
             *) 
               echo "NAMESPACE="staging"" >> $GITHUB_OUTPUT
               echo "SITE="www.thomastoumasu.xx.kg"" >> $GITHUB_OUTPUT ;;
+              echo "namespace is $NAMESPACE, site is $SITE"
           esac
-          echo "namespace is $NAMESPACE, site is $SITE"
 
   build-release-patch:
     name: Build application images, release them to images repo and patches the names to kustomization.yaml
@@ -107,7 +108,7 @@ jobs:
         id: define-file
         run: |-
           echo "KUSTOMIZATION_PATH="./the_project/kustomize/overlays/${NAMESPACE}"" >> $GITHUB_ENV
-          echo "KUSTOMIZATION_FILE="./the_project/kustomize/overlays/${NAMESPACE}/kustomization.yaml"" >> $GITHUB_OUTPUT
+          echo "KUSTOMIZATION_FILE="./the_project/kustomize/overlays/${NAMESPACE}/kustomization.yaml"" >> $GITHUB_ENV
 
       - name: Patch image names into the kustomization.yaml corresponding to the github event
         run: |-
@@ -120,16 +121,22 @@ jobs:
           echo "Configuration about to be checked in: "
           kustomize build . | cat
 
-  check-in:
-    name: Commit patched kustomization.yaml to GitHub
-    needs: [set-environment, build-release-patch]
-    runs-on: ubuntu-latest
-    env:
-      NAMESPACE: ${{ needs.set-environment.outputs.namespace }}
-      FILE: ${{ needs.build-release-patch.outputs.kustomization }}
-    steps:
-      - name: Commit
+      - name: Commit patched kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
         with:
-          add: $FILE
+          add: $KUSTOMIZATION_FILE
           message: New version released ${{ github.sha }}
+
+  # check-in:
+  #   name: Commit patched kustomization.yaml to GitHub
+  #   needs: [set-environment, build-release-patch]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     NAMESPACE: ${{ needs.set-environment.outputs.namespace }}
+  #     FILE: ${{ needs.build-release-patch.outputs.kustomization }}
+  #   steps:
+  #     - name: Commit
+  #       uses: EndBug/add-and-commit@v9
+  #       with:
+  #         add: $FILE
+  #         message: New version released ${{ github.sha }}
