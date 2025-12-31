@@ -66,7 +66,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: 'main' # necessary in the release case
+          ref: 'main' # necessary in the release case -- Supposes releases are only created on main.
 
       - uses: google-github-actions/auth@v2
         with:
@@ -130,7 +130,6 @@ jobs:
         with:
           add: './the_project/kustomize/overlays/'
           message: New version released ${{ github.sha }}
-          # push: 'origin main --force'
 
   # check-in:
   #   name: Commit patched kustomization.yaml to GitHub
