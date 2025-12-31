@@ -27,16 +27,16 @@ namespace: production
 images:
 - name: PROJECT/BACKEND_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/backend
-  newTag: production-4937564fe2c51f7468e0e72e0e9a0637906daea3
+  newTag: production-bd56ac21a2f4739c65ebfd7992036671948471fe
 - name: PROJECT/BROADCASTER_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/broadcaster
-  newTag: production-4937564fe2c51f7468e0e72e0e9a0637906daea3
+  newTag: production-bd56ac21a2f4739c65ebfd7992036671948471fe
 - name: PROJECT/DB_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/mongo
-  newTag: production-4937564fe2c51f7468e0e72e0e9a0637906daea3
+  newTag: production-bd56ac21a2f4739c65ebfd7992036671948471fe
 - name: PROJECT/FRONTEND_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/frontend
-  newTag: production-4937564fe2c51f7468e0e72e0e9a0637906daea3
+  newTag: production-bd56ac21a2f4739c65ebfd7992036671948471fe
 - name: PROJECT/IMAGEFINDER_IMAGE
   newName: europe-north1-docker.pkg.dev/dwk-gke-480809/my-repository/image-finder
-  newTag: production-4937564fe2c51f7468e0e72e0e9a0637906daea3
+  newTag: production-bd56ac21a2f4739c65ebfd7992036671948471fe
