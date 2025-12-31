@@ -80,10 +80,10 @@ jobs:
       - name: 'Form the images names'
         run: |-
           echo "BACKEND_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BACKEND_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
-          echo "FRONTEND_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$FRONTEND_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
-          echo "IMAGEFINDER_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGEFINDER_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
-          echo "DB_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$DB_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
-          echo "BROADCASTER_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BROADCASTER_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
+          # echo "FRONTEND_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$FRONTEND_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
+          # echo "IMAGEFINDER_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGEFINDER_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
+          # echo "DB_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$DB_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
+          # echo "BROADCASTER_IMAGE_TAG=$REGISTRY/$PROJECT_ID/$REPOSITORY/$BROADCASTER_IMAGE:$NAMESPACE-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build
         run: |-
@@ -96,10 +96,10 @@ jobs:
       - name: Publish to images repo
         run: |-
           docker push $BACKEND_IMAGE_TAG
-          docker push $FRONTEND_IMAGE_TAG
-          docker push $IMAGEFINDER_IMAGE_TAG
-          docker push $DB_IMAGE_TAG
-          docker push $BROADCASTER_IMAGE_TAG
+          # docker push $FRONTEND_IMAGE_TAG
+          # docker push $IMAGEFINDER_IMAGE_TAG
+          # docker push $DB_IMAGE_TAG
+          # docker push $BROADCASTER_IMAGE_TAG
 
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0
@@ -114,10 +114,10 @@ jobs:
         run: |-
           cd $KUSTOMIZATION_PATH
           kustomize edit set image PROJECT/BACKEND_IMAGE=$BACKEND_IMAGE_TAG
-          kustomize edit set image PROJECT/FRONTEND_IMAGE=$FRONTEND_IMAGE_TAG
-          kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
-          kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
-          kustomize edit set image PROJECT/BROADCASTER_IMAGE=$BROADCASTER_IMAGE_TAG
+          # kustomize edit set image PROJECT/FRONTEND_IMAGE=$FRONTEND_IMAGE_TAG
+          # kustomize edit set image PROJECT/IMAGEFINDER_IMAGE=$IMAGEFINDER_IMAGE_TAG
+          # kustomize edit set image PROJECT/DB_IMAGE=$DB_IMAGE_TAG
+          # kustomize edit set image PROJECT/BROADCASTER_IMAGE=$BROADCASTER_IMAGE_TAG
           echo "Configuration about to be checked in: "
           kustomize build . | cat
 
@@ -126,6 +126,7 @@ jobs:
         with:
           add: './the_project/kustomize/overlays/'
           message: New version released ${{ github.sha }}
+          push: 'origin main --force'
 
   # check-in:
   #   name: Commit patched kustomization.yaml to GitHub
