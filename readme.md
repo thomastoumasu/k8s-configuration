@@ -45,3 +45,4 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [4.8](https://github.com/thomastoumasu/k8s-submission/tree/4.8)
 - [4.9](https://github.com/thomastoumasu/k8s-submission/tree/4.9) Template: Github Action Pull configuration linked with ArgoCD deployment (GitOps)
 - [4.10](https://github.com/thomastoumasu/k8s-submission/tree/4.10) Template: Use different repositories for the code (k8s-application) and configurations (this repo) (GitOps)
+- [5.1](https://github.com/thomastoumasu/k8s-submission/tree/5.1) Template: Controller for custom resource (Kubernetes API)

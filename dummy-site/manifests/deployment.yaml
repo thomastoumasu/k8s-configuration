@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-site-dep
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dummy-site
+  template:
+    metadata:
+      labels:
+        app: dummy-site
+    spec:
+      volumes:
+        - name: shared-file
+          persistentVolumeClaim:
+            claimName: site-claim
+      containers:
+        - name: dummy-site
+          image: nginx:1.19-alpine
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: shared-file
+              mountPath: /usr/share/nginx/html
+        - name: site-fetcher
+          image: thomastoumasu/k8s-site-fetcher:5.1
+          env:
+            - name: SITE
+              value: 'https://en.wikipedia.org/wiki/Special:Random'
+              # value: 'http://www.example.com'
+          volumeMounts:
+            - name: shared-file
+              mountPath: /shared

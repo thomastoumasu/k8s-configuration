@@ -1,0 +1,28 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: dummysite-controller-role
+rules:
+  - apiGroups: ['']
+    resources: ['persistentvolumeclaims']
+    verbs: ['get', 'list', 'watch', 'create', 'delete']
+  - apiGroups: ['apps']
+    resources: ['deployments']
+    verbs: ['get', 'list', 'watch', 'create', 'delete', 'update']
+  - apiGroups: ['stable.dwk']
+    resources: ['dummysites']
+    verbs: ['watch']
+  # - apiGroups: ['']
+  #   resources: ['*']
+  #   verbs: ['*']
+  # - apiGroups: ['apps']
+  #   resources: ['*']
+  #   verbs: ['*']
+  # - apiGroups: ['batch']
+  #   # at the HTTP level, the name of the resource for accessing Job
+  #   # objects is "jobs"
+  #   resources: ['jobs']
+  #   verbs: ['get', 'list', 'watch', 'create', 'delete']
+  # - apiGroups: ['stable.dwk']
+  #   resources: ['dummysites']
+  #   verbs: ['get', 'list', 'watch', 'create', 'delete']
