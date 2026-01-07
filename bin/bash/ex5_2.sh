@@ -2,7 +2,7 @@
 # https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/service-mesh
 
 # install istio https://istio.io/latest/docs/ambient/getting-started/ 
-# curl -L https://istio.io/downloadIstio | sh -   , and add to path
+# curl -L https://istio.io/downloadIstio | sh -   , and add /bin to path
 k3d cluster create --api-port 6550 -p '9080:80@loadbalancer' -p '9443:443@loadbalancer' --agents 2 --k3s-arg '--disable=traefik@server:*'
 # check client version is shown
 istioctl version
