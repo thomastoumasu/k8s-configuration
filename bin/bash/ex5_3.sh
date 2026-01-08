@@ -1,21 +1,27 @@
 # 5.3 Service mesh - istio
+# use L7 processing to split traffic between two app versions
 # https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/service-mesh
 
-kubectl create namespace exercises || true
-kubens exercises
+# install istio https://istio.io/latest/docs/ambient/getting-started/ 
+# curl -L https://istio.io/downloadIstio | sh -   , and add to path
 
+# set up cluster and get traffic inside with a gateway
 k3d cluster create --api-port 6550 -p '9080:80@loadbalancer' -p '9443:443@loadbalancer' --agents 2 --k3s-arg '--disable=traefik@server:*'
 istioctl install --set profile=ambient --set values.global.platform=k3d
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
   kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/experimental-install.yaml
+kubectl create namespace exercises || true
+kubens exercises
 kubectl apply -f manifests/gateway.yaml
 kubectl apply -f manifests/routes.yaml
 
-# alternative: use an ingress
+# alternative setup to debug gateway problems (will work for basic version with deployment, not with the L7 / traffic split version): use an ingress
 # k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
+# kubectl create namespace exercises || true
+# kubens exercises
 # kubectl apply -f manifests/ingress.yaml
 
-# create deployment and service for the three apps
+# create deployment and service for the three apps (log_output, pingpong and greeter)
 kubectl apply -f ./log_output/manifests/config-map.yaml
 kubectl apply -f ./log_output/manifests/deployment.yaml
 # 2345->3000
@@ -29,186 +35,58 @@ kubectl apply -f ./greeter/manifests/deployment.yaml
 # 3456->3004
 kubectl apply -f ./greeter/manifests/service.yaml
 
-# wait for deployment
+# sanity checks
 kubectl rollout status deployment log-output-dep
 POD=$(kubectl get pods -o=name | grep postgres)
 kubectl wait --for=condition=Ready $POD
 POD=$(kubectl get pods -o=name | grep pingpong)
-# expect "Connection to postgres has been established successfully."
+# expect "Connection to postgres has been established successfully." If not, wait a bit and retry.
 kubectl logs $POD
 
+# if gateway
 kubectl annotate gateway log-output-gateway networking.istio.io/service-type=ClusterIP --namespace=exercises
 # check gateway is programmed
 kubectl get gateway
 kubectl port-forward svc/log-output-gateway-istio 8080:80
-curl localhost:8080
 curl localhost:8080/pingpong
+# if connection breaks, redo port-forward above
+curl localhost:8080
 
-# if ingress
-# should see the svcs on 1234, 2345, 3456, 5432 as well as the ingress on 80
-kubectl get svc,ing 
-curl two:8081
-curl two:8081/pingpong
-curl two:8081
+# # if ingress (to debug gateway problems)
+# # should see the svcs on 1234, 2345, 3456, 5432 as well as the ingress on 80
+# kubectl get svc,ing 
+# curl two:8081
+# curl two:8081/pingpong
+# curl two:8081
 
-k3d cluster delete
-
-
-
-
-# install istio https://istio.io/latest/docs/ambient/getting-started/ 
-# curl -L https://istio.io/downloadIstio | sh -   , and add to path
-k3d cluster create --api-port 6550 -p '9080:80@loadbalancer' -p '9443:443@loadbalancer' --agents 2 --k3s-arg '--disable=traefik@server:*'
-# check client version is shown
-istioctl version
-istioctl install --set profile=ambient --set values.global.platform=k3d
-# install gateway
-kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
-  kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/experimental-install.yaml
-
-# install hello world app
-kubectl apply -f greeter/manifests/hello.yaml
-kubectl apply -f greeter/manifests/gateway.yaml
-kubectl apply -f greeter/manifests/route.yaml
-# check all pods are running
-kubectl get pods
-kubectl annotate gateway hello-gateway networking.istio.io/service-type=ClusterIP --namespace=default
-# check gateway is programmed
-kubectl get gateway
-kubectl port-forward svc/hello-gateway-istio 8080:80
 # add app to the mesh
-kubectl label namespace default istio.io/dataplane-mode=ambient
+kubectl label namespace exercises istio.io/dataplane-mode=ambient
 # visualize the metrics
 kubectl apply -f greeter/manifests/prometheus.yaml
 kubectl apply -f greeter/manifests/kiali.yaml
+kubectl apply -f greeter/manifests/grafana.yaml
+POD=$(kubectl get pods -n istio-system -o=name | grep kiali)
+kubectl wait --for=condition=Ready $POD -n istio-system
 istioctl dashboard kiali
-# send some traffic
-for i in $(seq 1 100); do curl -sSI -o /dev/null http://localhost:8080; nc -zv localhost 8080; done
+# send some traffic, watch in kali (do not forget to set the namespace above the display)
+for i in $(seq 1 100); do curl -sSI -o /dev/null http://localhost:8080; curl -sSI -o /dev/null http://localhost:8080/pingpong; done
 
-# now change to two versions
-kubectl apply -f greeter/manifests/hello_twoversions.yaml
-kubectl apply -f greeter/manifests/route_twoversions.yaml
-# re send some traffic
-for i in $(seq 1 100); do curl -sSI -o /dev/null http://localhost:8080; nc -zv localhost 8080; done
-
-
-
-# enforce layer 4 authorization policies 
-# apply ztunnel authorization
-kubectl apply -f - <<EOF
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
-  name: productpage-ztunnel
-  namespace: default
-spec:
-  selector:
-    matchLabels:
-      app: productpage
-  action: ALLOW
-  rules:
-  - from:
-    - source:
-        principals:
-        - cluster.local/ns/default/sa/bookinfo-gateway-istio
-EOF
-kubectl apply -f samples/curl/curl.yaml
-# access denied if accessed from another client (curl pod is using a different service account)
-kubectl exec deploy/curl -- curl -s "http://productpage:9080/productpage"
-
-# enforce layer 7 authorization policies 
+# from here: only gateway. Replace greeter deployment with deployment of two versions
+# original service can be kept, add a http route that refers it as parent and the two new versions as backendRefs, with respective weight:
+kubectl apply -f ./greeter/manifests/deployment_twoversions.yaml
+# activate L7 processing (waypoint proxy) - this will deploy a istio-waypoint gateway that can process traffic for services. https://istio.io/latest/docs/ambient/usage/waypoint/
 istioctl waypoint apply --enroll-namespace --wait
-# namespace default should be now labeled
-kubectl get gtw waypoint
-# should be programmed
-# apply zpoint authorization
-kubectl apply -f - <<EOF
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
-  name: productpage-waypoint
-  namespace: default
-spec:
-  targetRefs:
-  - kind: Service
-    group: ""
-    name: productpage
-  action: ALLOW
-  rules:
-  - from:
-    - source:
-        principals:
-        - cluster.local/ns/default/sa/curl
-    to:
-    - operation:
-        methods: ["GET"]
-EOF
-# update ztunnel authorization
-kubectl apply -f - <<EOF
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
-  name: productpage-ztunnel
-  namespace: default
-spec:
-  selector:
-    matchLabels:
-      app: productpage
-  action: ALLOW
-  rules:
-  - from:
-    - source:
-        principals:
-        - cluster.local/ns/default/sa/bookinfo-gateway-istio
-        - cluster.local/ns/default/sa/waypoint
-EOF
-# This fails with an RBAC error because you're not using a GET operation
-kubectl exec deploy/curl -- curl -s "http://productpage:9080/productpage" -X DELETE
-# This fails with an RBAC error because the identity of the reviews-v1 service is not allowed
-kubectl exec deploy/reviews-v1 -- curl -s http://productpage:9080/productpage
-# This works as you're explicitly allowing GET requests from the curl pod
-kubectl exec deploy/curl -- curl http://productpage:9080/productpage
+# sanity check: no error in route
+kubectl describe httproute greeters-route
+# wait a bit and send some traffic (should see version 2 and 1 in proportion to the weights defined in deployment_twoversions.yaml)
+for i in $(seq 1 100); do curl -sS http://localhost:8080 | grep greetings; done
+# watch in kali (if not everything displayed, wait a bit a resend traffic)
 
-# Split traffic between services
-kubectl apply -f - <<EOF
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: reviews
-spec:
-  parentRefs:
-  - group: ""
-    kind: Service
-    name: reviews
-    port: 9080
-  rules:
-  - backendRefs:
-    - name: reviews-v1
-      port: 9080
-      weight: 90
-    - name: reviews-v2
-      port: 9080
-      weight: 10
-EOF
+kubectl get gateway
+# NAME                 CLASS            ADDRESS                                                PROGRAMMED   AGE
+# log-output-gateway   istio            log-output-gateway-istio.exercises.svc.cluster.local   True         7m32s
+# waypoint             istio-waypoint   10.43.207.89                                           True         22s
 
-# confirm that roughly 10% of the traffic from 100 requests goes to reviews-v2
-kubectl exec deploy/curl -- sh -c "for i in \$(seq 1 100); do curl -s http://productpage:9080/productpage | grep reviews-v.-; done"
-
-# clean up istio
-kubectl label namespace default istio.io/use-waypoint-
-istioctl waypoint delete --all
-kubectl label namespace default istio.io/dataplane-mode-
-kubectl delete httproute reviews
-kubectl delete authorizationpolicy productpage-viewer
-kubectl delete -f samples/curl/curl.yaml
-kubectl delete -f samples/bookinfo/platform/kube/bookinfo.yaml
-kubectl delete -f samples/bookinfo/platform/kube/bookinfo-versions.yaml
-kubectl delete -f samples/bookinfo/gateway-api/bookinfo-gateway.yaml
-istioctl uninstall -y --purge
-kubectl delete namespace istio-system
-kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/experimental-install.yaml
-cd
-rm -rf istio-1.28.2
 k3d cluster delete
 
 

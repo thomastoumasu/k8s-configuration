@@ -38,7 +38,7 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [4.1](https://github.com/thomastoumasu/k8s-submission/tree/4.1)
 - [4.2](https://github.com/thomastoumasu/k8s-submission/tree/4.2) Template: Readiness/Liveness probes and load balancer health checks
 - [4.3](https://github.com/thomastoumasu/k8s-submission/tree/4.3)
-- [4.4](https://github.com/thomastoumasu/k8s-submission/tree/4.4) Template: Canary Release using a Prometheus query as a success condition
+- [4.4](https://github.com/thomastoumasu/k8s-submission/tree/4.4) Template: Canary Release using a Prometheus query as a success condition (Argo Rollouts)
 - [4.5](https://github.com/thomastoumasu/k8s-submission/tree/4.5)
 - [4.6](https://github.com/thomastoumasu/k8s-submission/tree/4.6) Template: NATS as message queue system
 - [4.7](https://github.com/thomastoumasu/k8s-submission/tree/4.7) Template: Pull configuration with ArgoCD (GitOps)
@@ -47,3 +47,4 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [4.10](https://github.com/thomastoumasu/k8s-submission/tree/4.10) Template: Use different repositories for the code (k8s-application) and configurations (this repo) (GitOps)
 - [5.1](https://github.com/thomastoumasu/k8s-submission/tree/5.1) Template: Controller for custom resource (Kubernetes API)
 - [5.2](https://github.com/thomastoumasu/k8s-submission/tree/5.2)
+- [5.3](https://github.com/thomastoumasu/k8s-submission/tree/5.3) Template: Use istio to implement a service mesh (split traffic between versions, traffic between services with encryption and authorizations)
