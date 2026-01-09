@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-cfgmp
+  namespace: exercises
+data:
+  # file-like keys
+  nginx.conf: |
+    events {}
+    http {
+        server {
+            location / {
+                root /data/www;
+            }
+        }
+    }

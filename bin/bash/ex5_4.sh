@@ -6,6 +6,7 @@
 k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
 kubectl create namespace exercises || true
 kubens exercises
+kubectl apply -f wiki-server/manifests/nginx-configmap.yaml
 kubectl apply -f wiki-server/manifests/deployment.yaml
 # sanity check
 kubectl get pods
@@ -21,8 +22,9 @@ curl localhost:8080
 
 k3d cluster delete
 
-
-
+# debug main container
+kubectl logs $POD -c nginx
+kubectl exec -it $POD -c nginx -- sh
 
 # recreate image
 docker images

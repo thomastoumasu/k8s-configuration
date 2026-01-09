@@ -13,15 +13,23 @@ spec:
       labels:
         app: wiki-server
     spec:
-      volumes:
+      volumes: # You set volumes at the Pod level, then mount them into containers inside that Pod
         - name: workdir
           emptyDir: {}
+        - name: config
+          configMap:
+            name: nginx-cfgmp
+            items:
+              - key: 'nginx.conf'
+                path: 'nginx.conf'
       containers:
         - name: nginx
           image: nginx:1.19-alpine
           volumeMounts:
             - name: workdir
-              mountPath: /usr/share/nginx/html
+              mountPath: /data/www
+            - name: config
+              mountPath: /etc/nginx/
       # These containers are run during pod initialization
       initContainers:
         - name: install
@@ -37,6 +45,7 @@ spec:
           volumeMounts:
             - name: workdir
               mountPath: '/work-dir'
+        # restartPolicy: Always makes this a sidecar container
         - name: update
           image: thomastoumasu/k8s-countdown-curler:5.4
           restartPolicy: Always
