@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wiki-server-dep
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wiki-server
+  template:
+    metadata:
+      labels:
+        app: wiki-server
+    spec:
+      volumes:
+        - name: workdir
+          emptyDir: {}
+      containers:
+        - name: nginx
+          image: nginx:1.19-alpine
+          volumeMounts:
+            - name: workdir
+              mountPath: /usr/share/nginx/html
+      # These containers are run during pod initialization
+      initContainers:
+        - name: install
+          # image: busybox:1.28
+          # command:
+          #   - wget
+          #   - '-O'
+          #   - '/work-dir/index.html'
+          #   - http://info.cern.ch
+          image: alpine/curl
+          command:
+            ['curl', '-o', '/work-dir/index.html', 'https://en.wikipedia.org/wiki/Kubernetes']
+          volumeMounts:
+            - name: workdir
+              mountPath: '/work-dir'
+        - name: update
+          image: thomastoumasu/k8s-countdown-curler:5.4
+          restartPolicy: Always
+          volumeMounts:
+            - name: workdir
+              mountPath: '/usr/src/app/curled'
+      dnsPolicy: Default

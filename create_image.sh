@@ -1,12 +1,13 @@
 # eventually delete previous image
 docker images
 # create images
-cd log_output
-docker build -t 5.3 .   
+cd wiki-server
+docker build -t 5.4 .   
+docker run --rm 5.4
 # docker build --platform linux/amd64 -t 5.3 . 
 # sanity check
 # docker run --rm -p 3000:3000 --name 2.10 2.10 && curl localhost:8082 
-docker tag 5.3 thomastoumasu/k8s-log-output:5.3b && docker push thomastoumasu/k8s-log-output:5.3b
+docker tag 5.4 thomastoumasu/k8s-updater:5.4 && docker push thomastoumasu/k8s-updater:5.4
  && cd ../../../
 
 cd the_project/frontend
