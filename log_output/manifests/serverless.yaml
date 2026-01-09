@@ -1,0 +1,34 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: log-output
+  namespace: exercises
+spec:
+  template:
+    spec:
+      volumes: # You set volumes at the Pod level, then mount them into containers inside that Pod
+        - name: config
+          configMap: # Provide the name of the ConfigMap you want to mount.
+            name: log-output-cfgmp
+            items: # An array of keys from the ConfigMap to create as files
+              - key: 'information.txt'
+                path: 'information.txt'
+      containers:
+        - name: log-output
+          image: thomastoumasu/k8s-log-output:5.3b
+          env:
+            - name: GREETER_URL
+              # value: 'http://greeter-svc:3456/'
+              value: 'http://greeter.exercises.svc.cluster.local/'
+            - name: PINGPONG_URL
+              # value: 'http://pingpong-svc:1234/counter'
+              value: 'http://pingpong.exercises.172.18.0.3.sslip.io/counter'
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-cfgmp # The ConfigMap this value comes from.
+                  key: MESSAGE # The key to fetch.
+          volumeMounts:
+            - name: config
+              mountPath: '/config'
+              readOnly: true

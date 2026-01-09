@@ -1,0 +1,21 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: pingpong
+spec:
+  template:
+    spec:
+      containers:
+        - name: pingpong
+          image: thomastoumasu/k8s-pingpong:2.7
+          env:
+            # - name: PORT
+            #   value: '3002'
+            - name: DATABASE_URL
+              value: 'postgres://postgres:mysecretpassword@postgres-svc:5432/postgres'
+  traffic:
+    - latestRevision: true
+      percent: 50
+    - latestRevision: false
+      percent: 50
+      revisionName: pingpong-00001

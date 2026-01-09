@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: greeter
+  namespace: exercises
+spec:
+  template:
+    spec:
+      containers:
+        - name: greeter
+          image: thomastoumasu/k8s-greeter:5.3
+          env:
+            # - name: PORT
+            #   value: '3004'
+            - name: VERSION
+              value: '1'
