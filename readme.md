@@ -49,3 +49,4 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [5.2](https://github.com/thomastoumasu/k8s-submission/tree/5.2)
 - [5.3](https://github.com/thomastoumasu/k8s-submission/tree/5.3) Template: Use istio to implement a service mesh (split traffic between versions, traffic between services with encryption and authorizations)
 - [5.4](https://github.com/thomastoumasu/k8s-submission/tree/5.4) Template: Init container and sidecar container
+- [5.6](https://github.com/thomastoumasu/k8s-submission/tree/5.6)
