@@ -8,9 +8,19 @@ spec:
     spec:
       containers:
         - name: greeter
-          image: thomastoumasu/k8s-greeter:5.3
+          # image: thomastoumasu/k8s-greeter:5.3 # this image works also for k3s
+          image: thomastoumasu/k8s-greeter:buildx-latest
           env:
-            # - name: PORT
+            # - name: PORT # is automatically set by knative
             #   value: '3004'
             - name: VERSION
-              value: '1'
+              value: '1.3'
+  traffic:
+    - latestRevision: true
+      percent: 25
+    - latestRevision: false
+      percent: 25
+      revisionName: greeter-00001
+    - latestRevision: false
+      percent: 50
+      revisionName: greeter-00002

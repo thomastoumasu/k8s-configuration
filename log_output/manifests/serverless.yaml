@@ -15,14 +15,16 @@ spec:
                 path: 'information.txt'
       containers:
         - name: log-output
-          image: thomastoumasu/k8s-log-output:5.3b
+          # image: thomastoumasu/k8s-log-output:5.3b # this image works also for k3s
+          image: thomastoumasu/k8s-log-output:buildx-latest
           env:
             - name: GREETER_URL
-              # value: 'http://greeter-svc:3456/'
+              # value: 'http://greeter-svc:3456/' # this was the url before serverless
               value: 'http://greeter.exercises.svc.cluster.local/'
             - name: PINGPONG_URL
-              # value: 'http://pingpong-svc:1234/counter'
-              value: 'http://pingpong.exercises.172.18.0.3.sslip.io/counter'
+              # value: 'http://pingpong-svc:1234/counter' # this was the url before serverless
+              # value: 'http://pingpong.exercises.35.228.143.21.sslip.io/counter' # this also work but would need to be adapted for each new cluster
+              value: 'http://pingpong.exercises.svc.cluster.local/counter'
             - name: MESSAGE
               valueFrom:
                 configMapKeyRef:

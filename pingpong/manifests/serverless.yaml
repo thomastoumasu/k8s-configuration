@@ -7,9 +7,10 @@ spec:
     spec:
       containers:
         - name: pingpong
-          image: thomastoumasu/k8s-pingpong:2.7
+          # image: thomastoumasu/k8s-pingpong:2.7 # this image works also for k3s but serves on /pingpong
+          image: thomastoumasu/k8s-pingpong:buildx-latest
           env:
-            # - name: PORT
+            # - name: PORT # is automatically set by knative
             #   value: '3002'
             - name: DATABASE_URL
               value: 'postgres://postgres:mysecretpassword@postgres-svc:5432/postgres'
