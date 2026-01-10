@@ -1,5 +1,6 @@
 Submission repo for
 https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
+The numbers refer to releases as well as to the corresponding scripts in bin/bash.
 
 - [1.1](https://github.com/thomastoumasu/k8s-submission/tree/1.1)
 - [1.2](https://github.com/thomastoumasu/k8s-submission/tree/1.2)
@@ -50,4 +51,5 @@ https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
 - [5.3](https://github.com/thomastoumasu/k8s-submission/tree/5.3) Template: Use istio to implement a service mesh (split traffic between versions, traffic between services with encryption and authorizations)
 - [5.4](https://github.com/thomastoumasu/k8s-submission/tree/5.4) Template: Init container and sidecar container
 - [5.6](https://github.com/thomastoumasu/k8s-submission/tree/5.6)
-- [5.7](https://github.com/thomastoumasu/k8s-submission/tree/5.7) Template: Deployment with three serverless apps (knative)
+- [5.7](https://github.com/thomastoumasu/k8s-submission/tree/5.7) Template: Deployment of three serverless apps (knative)
+- [core](https://github.com/thomastoumasu/k8s-submission/tree/core) Template to manually deploy the core functions of the log_output app on both GKE and k3s

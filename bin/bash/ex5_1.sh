@@ -1,6 +1,7 @@
 # 5.1 Custom Resource Definition and Controller: Dummy site 
 # https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/custom-resource-definitions
 
+# works in this form as well in GKE (tested) -- only needs to pull the -amd images for controller in deployment.yaml and site-fetcher in dep.mustache
 k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
 kubectl apply -f ./dummy-site/controller/manifests/resourcedefinition.yaml
 kubectl apply -f ./dummy-site/controller/manifests/serviceaccount.yaml

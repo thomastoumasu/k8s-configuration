@@ -1,4 +1,4 @@
-# 3.11 enable gke monitoring
+# 3.12 enable gke monitoring
 # https://docs.cloud.google.com/kubernetes-engine/docs/concepts/observability
 
 CLUSTER_NAME=dwk-cluster

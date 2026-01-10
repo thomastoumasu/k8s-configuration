@@ -22,7 +22,8 @@ spec:
                 path: 'information.txt'
       containers:
         - name: log-output
-          image: thomastoumasu/k8s-log-output:5.3b
+          # image: thomastoumasu/k8s-log-output:5.3b or 5.3-amd for GKE
+          image: thomastoumasu/k8s-log-output:buildx-latest
           env:
             - name: GREETER_URL
               value: 'http://greeter-svc:3456/'
@@ -37,3 +38,15 @@ spec:
             - name: config
               mountPath: '/config'
               readOnly: true
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /health
+              port: 3000
+          livenessProbe:
+            initialDelaySeconds: 20 # Initial delay until the liveness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /health
+              port: 3000

@@ -3,10 +3,11 @@
 
 # install istio https://istio.io/latest/docs/ambient/getting-started/ 
 # curl -L https://istio.io/downloadIstio | sh -   , and add /bin to path
+# run on gke needs resources superior than what is covered by the free plan: https://istio.io/latest/docs/setup/platform-setup/gke/
 k3d cluster create --api-port 6550 -p '9080:80@loadbalancer' -p '9443:443@loadbalancer' --agents 2 --k3s-arg '--disable=traefik@server:*'
 # check client version is shown
 istioctl version
-istioctl install --set profile=ambient --set values.global.platform=k3d
+istioctl install --set profile=ambient --set values.global.platform=k3d --skip-confirmation
 
 # install gateway
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
@@ -14,6 +15,7 @@ kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
 # Do not do !! kubectl label namespace default istio-injection=enabled
 
 # install example app https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
+cd ~/Applications/istio-1.28.2
 kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
 kubectl apply -f samples/bookinfo/platform/kube/bookinfo-versions.yaml
 # check all pods are running
@@ -22,6 +24,7 @@ kubectl apply -f samples/bookinfo/gateway-api/bookinfo-gateway.yaml
 kubectl annotate gateway bookinfo-gateway networking.istio.io/service-type=ClusterIP --namespace=default
 # check gateway is programmed
 kubectl get gateway
+# access application on localhost:8080/productpage
 kubectl port-forward svc/bookinfo-gateway-istio 8080:80
 
 # add app to the mesh

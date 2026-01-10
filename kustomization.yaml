@@ -1,0 +1,11 @@
+# kustomization file for exercises (the_project has its own in the_project folder)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./pingpong/postgres/manifests/config-map.yaml
+  - ./pingpong/manifests/service.yaml
+  - ./log_output/manifests/config-map.yaml
+  - ./log_output/manifests/deployment.yaml
+  - ./log_output/manifests/service.yaml
+  - ./greeter/manifests/deployment.yaml
+  - ./greeter/manifests/service.yaml

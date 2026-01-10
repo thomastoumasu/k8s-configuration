@@ -15,9 +15,10 @@ spec:
     spec:
       containers:
         - name: greeter
-          image: thomastoumasu/k8s-greeter:5.3
+          # image: thomastoumasu/k8s-greeter:5.3 or 5.4-amd for GKE
+          image: thomastoumasu/k8s-greeter:buildx-latest
           env:
             - name: PORT
               value: '3004'
             - name: VERSION
-              value: '1'
+              value: '1.1'
