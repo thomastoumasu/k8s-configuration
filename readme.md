@@ -1,6 +1,6 @@
 Submission repo for
-https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/
-The numbers refer to releases as well as to the corresponding scripts in bin/bash.
+https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/  
+The numbers link to releases as well as refer to the corresponding scripts in bin/bash.
 
 - [1.1](https://github.com/thomastoumasu/k8s-submission/tree/1.1)
 - [1.2](https://github.com/thomastoumasu/k8s-submission/tree/1.2)
@@ -33,7 +33,7 @@ The numbers refer to releases as well as to the corresponding scripts in bin/bas
 - [3.5](https://github.com/thomastoumasu/k8s-submission/tree/3.5)
 - [3.6](https://github.com/thomastoumasu/k8s-submission/tree/3.6) Template for Github action to deploy on GKE on push
 - [3.7](https://github.com/thomastoumasu/k8s-submission/tree/3.7)
-- [3.8](https://github.com/thomastoumasu/k8s-submission/tree/3.8) Template for multiple deployments on same gateway (main on namespace project, $branch on namespace $branch)
+- [3.8](https://github.com/thomastoumasu/k8s-submission/tree/3.8) Template for multiple deployments on same gateway (main on ns project, $branch on ns $branch)
 - [3.9](https://github.com/thomastoumasu/k8s-submission/tree/3.9)
 - [3.10](https://github.com/thomastoumasu/k8s-submission/tree/3.10) Use Workload Identity to run gcloud commands from a pod inside the cluster (db backup)
 - [4.1](https://github.com/thomastoumasu/k8s-submission/tree/4.1)
