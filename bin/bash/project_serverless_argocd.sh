@@ -1,4 +1,4 @@
-# set up same as ex5.7
+# set up knative (serverless) same as ex5.7, cluster needs e2-medium for CPU
 CLUSTER_NAME=dwk-cluster
 LOCATION=europe-north1-b
 CONTROL_PLANE_LOCATION=europe-north1-b
@@ -22,30 +22,33 @@ kubectl get pods -n knative-serving
 # configure DNS
 kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.18.2/serving-default-domain.yaml
 
+# deploy serverless project
+# first time after cluster setup: need to know the allocated IP and write it into a new frontend image. After that, can use kustomize (and so ArgoCD).
 kubectl create namespace project || true
 kubens project
-# kubectl kustomize ./the_project/kustomize/serverless
 kubectl apply -f ./the_project/kustomize/serverless/mongo-config-map.yaml
-# put the resources requests lower so that the mongo pod can be scheduled
+# Comment on the mongo statefulset: set the resources requests lower than usual so that the mongo pod can be scheduled
 kubectl apply -f ./the_project/kustomize/serverless/mongo-statefulset_gke.yaml
 kubectl apply -f ./the_project/kustomize/serverless/backend-serverless.yaml
 kubectl get ksvc
-# then in repo k8s-application
+# then in repo k8s-application, build the frontend image using the allocated ip
 cd ../frontend
 docker build --platform linux/amd64 --build-arg VITE_BACKEND_URL="http://backend.project.34.88.212.46.sslip.io/api/todos" -t serverless . 
-docker tag serverless thomastoumasu/k8s-frontend:serverlessa-amd && docker push thomastoumasu/k8s-frontend:serverlessa-amd
+docker tag serverless thomastoumasu/k8s-frontend:serverless-amd && docker push thomastoumasu/k8s-frontend:serverless-amd
 # then again here
 kubectl apply -f ./the_project/kustomize/serverless/frontend-serverless.yaml
 
-kubectl get pods
-kubectl get ksvc
-# for GKE, just curl the IPs
+# from now, so long the cluster exist, can just do
+# kubectl kustomize ./the_project/kustomize/serverless
 
+kubectl get pods,ksvc
+# for GKE, just open the IPs in browser
+
+# Note: almost works also for k3s, if localhost alias set up in etc/hosts, however frontend does not connect with backend (axios call probably needs to be changed)
 curl -H "Host: backend.project.172.18.0.3.sslip.io" http://localhost:8081/api/todos
 curl -H "Host: frontend.project.172.18.0.3.sslip.io" http://localhost:8081
-# works for k3s, if localhost alias set up in etc/hosts, however frontend does not connect with backend (axios call probably needs to be changed)
 
-
+# now set up ArgoCD
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl port-forward svc/argocd-server -n argocd 8080:443
