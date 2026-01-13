@@ -53,4 +53,4 @@ The numbers link to releases as well as refer to the corresponding scripts in bi
 - [5.6](https://github.com/thomastoumasu/k8s-submission/tree/5.6)
 - [5.7](https://github.com/thomastoumasu/k8s-submission/tree/5.7) Template: Deployment of three serverless apps (knative)
 - [core](https://github.com/thomastoumasu/k8s-submission/tree/core) Template to manually deploy the core functions of the log_output app on both GKE and k3s
-- [psa](https://github.com/thomastoumasu/k8s-submission/tree/core) Template to declaratively deploy the_project serverless with ArgoCD
+- [psa](https://github.com/thomastoumasu/k8s-submission/tree/psa) Template to declaratively deploy the_project serverless with ArgoCD
