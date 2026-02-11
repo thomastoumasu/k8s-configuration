@@ -1,7 +1,4 @@
 # 5.4 Init- and Sidecar controller: Wikipedia with init and sidecar
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/service-mesh
-# https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container
-
 
 k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
 kubectl create namespace exercises || true

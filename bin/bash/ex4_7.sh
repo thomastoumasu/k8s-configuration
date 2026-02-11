@@ -1,5 +1,4 @@
 # 4.7 deploy log_output/pingpong app (aka exercises) with argo
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-5/gitops
 
 CLUSTER_NAME=dwk-cluster
 LOCATION=europe-north1-b

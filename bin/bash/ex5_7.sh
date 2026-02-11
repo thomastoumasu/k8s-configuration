@@ -1,7 +1,6 @@
 # 5.7 knative - make pingpong app (and log_output, and greeter) serverless
 # work as well in GKE as in k3s. Deployments use multi-arch images so can be shared. Only postgres statefulset need to be applied separately.
 # no ingress nor gateway needed for GKE, knative/kourier takes care of making apps reachable from outside the cluster.
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/beyond-kubernetes
 
 # IF GKE: create cluster 
 CLUSTER_NAME=dwk-cluster

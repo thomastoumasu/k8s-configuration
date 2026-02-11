@@ -1,7 +1,7 @@
 {
   "name": "log_output:write",
   "version": "1.0.0",
-  "description": "https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/",
+  "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {

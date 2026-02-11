@@ -1,5 +1,4 @@
 # 4.6 nats - broadcaster
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-5/messaging-systems
 
 CLUSTER_NAME=dwk-cluster
 LOCATION=europe-north1-b

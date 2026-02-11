@@ -1,6 +1,5 @@
 # 5.3a Service mesh - istio
 # same as 5.3 but simpler (only uses main gateway to split traffic, not with a second gateway inside)
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/service-mesh
 
 # install istio https://istio.io/latest/docs/ambient/getting-started/ 
 # curl -L https://istio.io/downloadIstio | sh -   , and add to path

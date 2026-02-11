@@ -2,7 +2,6 @@
 # uses different repositories for the code (k8s-application) and configurations (this repo).
 # A push in code repo triggers a github action that builds the images and updates the configuration files here with the image names.
 # Argo is linked with this repo and syncs the cluster accordingly.
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-5/gitops
 
 # set up the cluster
 CLUSTER_NAME=dwk-cluster

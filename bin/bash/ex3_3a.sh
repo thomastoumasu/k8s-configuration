@@ -1,5 +1,4 @@
 # # the_project with ingress for gke, to access cluster from outside sh bin/bash/ex3_3.sh
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-4/introduction-to-google-kubernetes-engine
 # need first to get IP with the ingress, then write this IP in ENV VITE_BACKEND_URL in frontend Dockerfile, 
 # and build this into the frontend image applied with the_project/frontend/manifests/deployment_gke.yaml
 

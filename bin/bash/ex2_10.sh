@@ -1,5 +1,4 @@
 # # monitoring sh bin/bash/ex2_10.sh
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-3/monitoring
 # sh reset_cluster.sh
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add stable https://charts.helm.sh/stable

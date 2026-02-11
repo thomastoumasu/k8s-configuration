@@ -1,6 +1,5 @@
 # 5.3 Service mesh - istio
 # use L7 processing to split traffic between two app versions
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/service-mesh
 
 # install istio https://istio.io/latest/docs/ambient/getting-started/ 
 # curl -L https://istio.io/downloadIstio | sh -   , and add to path

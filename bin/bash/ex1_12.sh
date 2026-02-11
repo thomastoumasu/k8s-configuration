@@ -1,4 +1,4 @@
-# persistent storage, https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-2/introduction-to-storage
+# persistent storage
 sh clear.sh  
 
 # # create images

@@ -1,7 +1,6 @@
 # 4.9 pull deployment pipeline of the_project with argo
 # github action has changed: instead of deploying from action, action changes and checks in the kustomization file. 
 # Argo is linked with this file and syncs the cluster accordingly.
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-5/gitops
 
 CLUSTER_NAME=dwk-cluster
 LOCATION=europe-north1-b

@@ -20,7 +20,7 @@ env:
   BROADCASTER_IMAGE: broadcaster
   WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
   SERVICE: backend-dep
-  # BRANCH: ${{ github.ref_name }} or ${GITHUB_REF#refs/heads/}, check https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-4/deployment-pipeline
+  # BRANCH: ${{ github.ref_name }} or ${GITHUB_REF#refs/heads/}, check /deployment-pipeline
   BRANCH: ${{ github.head_ref || github.ref_name }}
 
 jobs:

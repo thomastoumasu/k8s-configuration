@@ -1,5 +1,4 @@
 # 5.2 Service mesh - istio
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-6/service-mesh
 
 # install istio https://istio.io/latest/docs/ambient/getting-started/ 
 # curl -L https://istio.io/downloadIstio | sh -   , and add /bin to path

@@ -1,5 +1,4 @@
 # # pingpong with the gateway for gke, to access cluster from outside sh bin/bash/ex3_4.sh
-# https://courses.mooc.fi/org/uh-cs/courses/devops-with-kubernetes/chapter-4/introduction-to-google-kubernetes-engine
 # from ingress to cluster: delete ingress and services, then 
 # update cluster with gateway-api, apply gateway, new services (with ClusterIP instead of NodePort) and routes.
 
